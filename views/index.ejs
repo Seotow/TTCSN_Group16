@@ -1,10 +1,804 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>shopee</title>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+        integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="stylesheets/base.css" />
+    <link rel="stylesheet" href="stylesheets/style.css" />
+</head>
+<body>
+<div class="main">
+    <header class="header">
+        <div class="grid">
+            <nav class="header__navbar">
+                <div class="header__navbar-list">
+                    <div class="header__navbar-item">
+                        <a href="#" class="header__navbar-link"
+                            >Kênh người bán</a
+                        >
+                    </div>
+                    <div class="header__navbar-item">
+                        <a href="#" class="header__navbar-link"
+                            >Trở thành người bán
+                        </a>
+                    </div>
+                    <div
+                        class="header__navbar-item header__navbar-item--hasqr">
+                        <a href="#" class="header__navbar-link">
+                            Tải ứng dụng
+                        </a>
+                        <a href="#" class="header__qr">
+                            <img
+                                src="images/QrCode.jpg"
+                                alt="qrcode"
+                                class="header__qrcode-img" />
+                            <div class="header__qr-apps">
+                                <img
+                                    src="images/appstore.png"
+                                    alt="Appstore"
+                                    class="header__qr-img-app" />
+                                <img
+                                    src="images/ggplay.png"
+                                    alt="Google Play"
+                                    class="header__qr-img-app" />
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="header__navbar-item">
+                        <a href="#" class="header__navbar-link">
+                            <span
+                                class="header__navbar-title--no-pointer"
+                                >Kết nối</span
+                            >
+                        </a>
+                    </div>
+
+                    <a
+                        href="https://facebook.com/"
+                        target="blank"
+                        class="header__navbar-icon">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+
+                    <a
+                        href="https://instagram.com/"
+                        target="blank"
+                        class="header__navbar-icon">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+
+                <div class="header__navbar-list">
+                    <div
+                        class="header__navbar-item header__navbar-item--hasnotify">
+                        <a href="#" class="header__navbar-link">
+                            <i class="far fa-bell"></i>
+                            Thông báo
+                        </a>
+                        <div class="header__notify">
+                            <header class="header__notify-header">
+                                <h3>Thông báo mới nhận</h3>
+                            </header>
+                            <ul class="header__notify-list">
+                                <li
+                                    class="header__notify-item header__notify-item--seen">
+                                    <a
+                                        href="#"
+                                        class="header__notify-link">
+                                        <img
+                                            src="https://www.laviewater.com/wp-content/uploads/2020/08/La-Vie-Prestige.jpg"
+                                            alt=""
+                                            class="header__notify-img" />
+                                        <div
+                                            class="header__notify-info">
+                                            <p
+                                                class="header__notify-name">
+                                                Nước hoa hiệu lavie
+                                                chính hãng Nước hoa hiệu
+                                                lavie chính hãng Nước
+                                                hoa hiệu lavie chính
+                                                hãng
+                                            </p>
+                                            <p
+                                                class="header__notify-desc">
+                                                Mô tả mỹ phẩm hiệu lavie
+                                                hoa hiệu lavie chính
+                                                hãng hoa hiệu lavie
+                                                chính hãng
+                                            </p>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <li class="header__notify-item">
+                                    <a
+                                        href="#"
+                                        class="header__notify-link">
+                                        <img
+                                            src="https://www.laviewater.com/wp-content/uploads/2020/08/La-Vie-Prestige.jpg"
+                                            alt=""
+                                            class="header__notify-img" />
+                                        <div
+                                            class="header__notify-info">
+                                            <p
+                                                class="header__notify-name">
+                                                Nước hoa hiệu lavie
+                                                chính hãng
+                                            </p>
+                                            <p
+                                                class="header__notify-desc">
+                                                Mô tả mỹ phẩm hiệu lavie
+                                            </p>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                            <footer class="header__notify-footer">
+                                <a
+                                    href="#"
+                                    class="header__notify-footer-btn">
+                                    Xem tất cả
+                                </a>
+                            </footer>
+                        </div>
+                    </div>
+                    <div class="header__navbar-item">
+                        <a href="#" class="header__navbar-link">
+                            <i class="far fa-question-circle"></i>
+                            Hỗ trợ
+                        </a>
+                    </div>
+
+                    <!-- User -->
+                    <div
+                        class="header__navbar-item header__navbar-user">
+                        <img
+                            src=""
+                            alt="avatar"
+                            class="header__navbar-user-img" />
+                        <div class="header__navbar-user-name">hieu</div>
+                        <div class="header__navbar-user-options">
+                            <a
+                                href="#"
+                                class="header__navbar-user-option-link">
+                                Tài khoản của tôi
+                            </a>
+                            <a
+                                href=""
+                                class="header__navbar-user-option-link">
+                                Đơn mua
+                            </a>
+                            <a
+                                href=""
+                                class="header__navbar-user-option-link header__navbar-user-option-link--separate">
+                                Đăng xuất
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- /* Header with search */ -->
+
+            <div class="header-with-search">
+                <!-- Logo -->
+
+                <div class="header__logo">
+                    <a href="/" class="header__logo-link">
+                        GROUP 11
+                    </a>
+                </div>
+
+                <!-- Search -->
+
+                <div class="header-search">
+                    <input
+                        type="text"
+                        class="header-search__inp"
+                        placeholder="Nhập sản phẩm cần tìm" />
+
+                    <div class="header-search__history">
+                        <h3 class="header-search__history-heading">
+                            Lịch sử tìm kiếm
+                        </h3>
+                        <ul class="header-search__history-list">
+                            <li class="header-search__history-item">
+                                <a href="#"> Test1 </a>
+                            </li>
+                            <li class="header-search__history-item">
+                                <a href="#"> Test2 </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <button class="header-search__btn">
+                        <i
+                            class="fas fa-search header-search__btn-icon"></i>
+                    </button>
+                </div>
+
+                <!-- Cart -->
+
+                <div class="header-cart">
+                    <div
+                        class="header-cart__list header-cart__list--empty"
+                        style="z-index: 2">
+                        <!-- Empty -->
+                        <img
+                            src="images/nocart.png"
+                            class="header-cart__list--empty-img" />
+                        <span class="header-cart__list--empty-msg">
+                            Chưa có sản phẩm
+                        </span>
+                    </div>
+
+                    <a href="">
+                        <i
+                            class="header-cart__icon fas fa-cart-plus"></i>
+                        <span class="header-cart__quantity">1</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="content-section">
+        <div class="grid content">
+            <!-- Category -->
+        
+            <div class="category">
+                <div class="category__header">DANH MỤC</div>
+                <div class="category__body">
+                    <div class="grid_col-2 category-col">
+                        <a href="#" class="category-item">
+                            <div class="category-item__img" style="
+                                            background-image: url('images/mau.png');
+                                            background-size: contain;
+                                            background-repeat: no-repeat;
+                                        "></div>
+                            <span class="category-item__name">Laptop</span>
+                        </a>
+                        <a href="#" class="category-item">
+                            <div class="category-item__img" style="
+                                            background-image: url('images/mau.png');
+                                            background-size: contain;
+                                            background-repeat: no-repeat;
+                                        "></div>
+                            <span class="category-item__name">PC</span>
+                        </a>
+                    </div>
+                    <div class="grid_col-2 category-col">
+                        <a href="#" class="category-item">
+                            <div class="category-item__img" style="
+                                            background-image: url('images/mau.png');
+                                            background-size: contain;
+                                            background-repeat: no-repeat;
+                                        "></div>
+                            <span class="category-item__name">Main, CPU, VGA</span>
+                        </a>
+                        <a href="#" class="category-item">
+                            <div class="category-item__img" style="
+                                            background-image: url('images/mau.png');
+                                            background-size: contain;
+                                            background-repeat: no-repeat;
+                                        "></div>
+                            <span class="category-item__name">CPU, Nguồn, Tản</span>
+                        </a>
+                    </div>
+                    <div class="grid_col-2 category-col">
+                        <a href="#" class="category-item">
+                            <div class="category-item__img" style="
+                                            background-image: url('images/mau.png');
+                                            background-size: contain;
+                                            background-repeat: no-repeat;
+                                        "></div>
+                            <span class="category-item__name">Ổ cứng, ram, thẻ nhớ</span>
+                        </a>
+                        <a href="#" class="category-item">
+                            <div class="category-item__img" style="
+                                            background-image: url('images/mau.png');
+                                            background-size: contain;
+                                            background-repeat: no-repeat;
+                                        "></div>
+                            <span class="category-item__name">Loa, Micro, Webcam</span>
+                        </a>
+                    </div>
+                    <div class="grid_col-2 category-col">
+                        <a href="#" class="category-item">
+                            <div class="category-item__img" style="
+                                            background-image: url('images/mau.png');
+                                            background-size: contain;
+                                            background-repeat: no-repeat;
+                                        "></div>
+                            <span class="category-item__name">Màn hình</span>
+                        </a>
+                        <a href="#" class="category-item">
+                            <div class="category-item__img" style="
+                                            background-image: url('images/mau.png');
+                                            background-size: contain;
+                                            background-repeat: no-repeat;
+                                        "></div>
+                            <span class="category-item__name">Bàn phím</span>
+                        </a>
+                    </div>
+                    <div class="grid_col-2 category-col">
+                        <a href="#" class="category-item">
+                            <div class="category-item__img" style="
+                                            background-image: url('images/mau.png');
+                                            background-size: contain;
+                                            background-repeat: no-repeat;
+                                        "></div>
+                            <span class="category-item__name">Chuột + lót chuột</span>
+                        </a>
+                        <a href="#" class="category-item">
+                            <div class="category-item__img" style="
+                                            background-image: url('images/mau.png');
+                                            background-size: contain;
+                                            background-repeat: no-repeat;
+                                        "></div>
+                            <span class="category-item__name">Tai nghe</span>
+                        </a>
+                    </div>
+                    <div class="grid_col-2 category-col">
+                        <a href="#" class="category-item">
+                            <div class="category-item__img" style="
+                                            background-image: url('images/mau.png');
+                                            background-size: contain;
+                                            background-repeat: no-repeat;
+                                        "></div>
+                            <span class="category-item__name">Mạng</span>
+                        </a>
+                        <a href="#" class="category-item">
+                            <div class="category-item__img" style="
+                                            background-image: url('images/mau.png');
+                                            background-size: contain;
+                                            background-repeat: no-repeat;
+                                        "></div>
+                            <span class="category-item__name">Handheld, Console</span>
+                        </a>
+                    </div>
+                    <div class="grid_col-2 category-col">
+                        <a href="#" class="category-item">
+                            <div class="category-item__img" style="
+                                            background-image: url('images/mau.png');
+                                            background-size: contain;
+                                            background-repeat: no-repeat;
+                                        "></div>
+                            <span class="category-item__name">Phụ kiện, cáp sạc</span>
+                        </a>
+                        <a href="#" class="category-item">
+                            <div class="category-item__img" style="
+                                            background-image: url('images/mau.png');
+                                            background-size: contain;
+                                            background-repeat: no-repeat;
+                                        "></div>
+                            <span class="category-item__name">Camera, chuông báo cháy</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Suggestion -->
+        <div class="grid suggestion">
+            <div class="suggestion__header">
+                <h3
+                    class="suggestion__header-title suggestion__header-title--active">
+                    Gợi ý của hôm nay
+                    <div class="suggestion__header-border"></div>
+                </h3>
+            </div>
+            <div class="grid__row app-content">
+                <div class="grid__col-12">
+                    <!-- Product -->
+                    <div class="grid__row">
+
+                        <div class="grid__col-2 product">
+                            <a href="#" class="product-item product--discount product--favourite">
+                                <div class="product__img"
+                                    style="
+                                        background-image: url('./images/mau.png');
+                                        background-size: contain;
+                                        background-repeat: no-repeat;
+                                        background-position: center;
+                                    ">
+                                    
+                                </div>
+
+                                <div class="product-body">
+                                    <h3 class="product__name">
+                                        Laptop chính hiệu
+                                    </h3>
+
+                                    <div class="product__discount">
+                                        <svg
+                                            class="product__discount-decor"
+                                            viewBox="-0.5 -0.5 4 16">
+                                            <path
+                                                d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
+                                                stroke-width="1"
+                                                transform=""
+                                                stroke="currentColor"
+                                                fill="#f69113"></path>
+                                        </svg>
+                                        <div
+                                            class="product__discount-price">
+                                            10%
+                                        </div>
+                                        <svg
+                                            class="product__discount-decor"
+                                            viewBox="-0.5 -0.5 4 16">
+                                            <path
+                                                d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
+                                                stroke-width="1"
+                                                transform="rotate(180) translate(-3 -15)"
+                                                stroke="currentColor"
+                                                fill="#f69113"></path>
+                                        </svg>
+                                    </div>
+
+                                    <div class="product__info">
+                                        <span
+                                            class="product__info-price"
+                                            >120.000.000đ</span
+                                        >
+                                    </div>
+                                </div>
+
+                                <div class="product__favourite">
+                                    <span>Yêu Thích</span>
+                                </div>
+                                <button class="product-hover-footer">
+                                    Thêm vào giỏ hàng
+                                </button>
+                            </a>
+                        </div>
+                        <div class="grid__col-2 product">
+                            <a href="#" class="product-item product--discount product--favourite">
+                                <div class="product__img"
+                                    style="
+                                        background-image: url('./images/mau.png');
+                                        background-size: contain;
+                                        background-repeat: no-repeat;
+                                        background-position: center;
+                                    ">
+                                    
+                                </div>
+
+                                <div class="product-body">
+                                    <h3 class="product__name">
+                                        Laptop chính hiệu
+                                    </h3>
+
+                                    <div class="product__discount">
+                                        <svg
+                                            class="product__discount-decor"
+                                            viewBox="-0.5 -0.5 4 16">
+                                            <path
+                                                d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
+                                                stroke-width="1"
+                                                transform=""
+                                                stroke="currentColor"
+                                                fill="#f69113"></path>
+                                        </svg>
+                                        <div
+                                            class="product__discount-price">
+                                            10%
+                                        </div>
+                                        <svg
+                                            class="product__discount-decor"
+                                            viewBox="-0.5 -0.5 4 16">
+                                            <path
+                                                d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
+                                                stroke-width="1"
+                                                transform="rotate(180) translate(-3 -15)"
+                                                stroke="currentColor"
+                                                fill="#f69113"></path>
+                                        </svg>
+                                    </div>
+
+                                    <div class="product__info">
+                                        <span
+                                            class="product__info-price"
+                                            >120.000.000đ</span
+                                        >
+                                    </div>
+                                </div>
+
+                                <div class="product__favourite">
+                                    <span>Yêu Thích</span>
+                                </div>
+                                <button class="product-hover-footer">
+                                    Thêm vào giỏ hàng
+                                </button>
+                            </a>
+                        </div>
+                        <div class="grid__col-2 product">
+                            <a href="#" class="product-item product--discount product--favourite">
+                                <div class="product__img"
+                                    style="
+                                        background-image: url('./images/mau.png');
+                                        background-size: contain;
+                                        background-repeat: no-repeat;
+                                        background-position: center;
+                                    ">
+                                    
+                                </div>
+
+                                <div class="product-body">
+                                    <h3 class="product__name">
+                                        Laptop chính hiệu
+                                    </h3>
+
+                                    <div class="product__discount">
+                                        <svg
+                                            class="product__discount-decor"
+                                            viewBox="-0.5 -0.5 4 16">
+                                            <path
+                                                d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
+                                                stroke-width="1"
+                                                transform=""
+                                                stroke="currentColor"
+                                                fill="#f69113"></path>
+                                        </svg>
+                                        <div
+                                            class="product__discount-price">
+                                            10%
+                                        </div>
+                                        <svg
+                                            class="product__discount-decor"
+                                            viewBox="-0.5 -0.5 4 16">
+                                            <path
+                                                d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
+                                                stroke-width="1"
+                                                transform="rotate(180) translate(-3 -15)"
+                                                stroke="currentColor"
+                                                fill="#f69113"></path>
+                                        </svg>
+                                    </div>
+
+                                    <div class="product__info">
+                                        <span
+                                            class="product__info-price"
+                                            >120.000.000đ</span
+                                        >
+                                    </div>
+                                </div>
+
+                                <div class="product__favourite">
+                                    <span>Yêu Thích</span>
+                                </div>
+                                <button class="product-hover-footer">
+                                    Thêm vào giỏ hàng
+                                </button>
+                            </a>
+                        </div>
+                        <div class="grid__col-2 product">
+                            <a href="#" class="product-item product--discount product--favourite">
+                                <div class="product__img"
+                                    style="
+                                        background-image: url('./images/mau.png');
+                                        background-size: contain;
+                                        background-repeat: no-repeat;
+                                        background-position: center;
+                                    ">
+                                    
+                                </div>
+
+                                <div class="product-body">
+                                    <h3 class="product__name">
+                                        Laptop chính hiệu
+                                    </h3>
+
+                                    <div class="product__discount">
+                                        <svg
+                                            class="product__discount-decor"
+                                            viewBox="-0.5 -0.5 4 16">
+                                            <path
+                                                d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
+                                                stroke-width="1"
+                                                transform=""
+                                                stroke="currentColor"
+                                                fill="#f69113"></path>
+                                        </svg>
+                                        <div
+                                            class="product__discount-price">
+                                            10%
+                                        </div>
+                                        <svg
+                                            class="product__discount-decor"
+                                            viewBox="-0.5 -0.5 4 16">
+                                            <path
+                                                d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
+                                                stroke-width="1"
+                                                transform="rotate(180) translate(-3 -15)"
+                                                stroke="currentColor"
+                                                fill="#f69113"></path>
+                                        </svg>
+                                    </div>
+
+                                    <div class="product__info">
+                                        <span
+                                            class="product__info-price"
+                                            >120.000.000đ</span
+                                        >
+                                    </div>
+                                </div>
+
+                                <div class="product__favourite">
+                                    <span>Yêu Thích</span>
+                                </div>
+                                <button class="product-hover-footer">
+                                    Thêm vào giỏ hàng
+                                </button>
+                            </a>
+                        </div>
+                        <div class="grid__col-2 product">
+                            <a href="#" class="product-item product--discount product--favourite">
+                                <div class="product__img"
+                                    style="
+                                        background-image: url('./images/mau.png');
+                                        background-size: contain;
+                                        background-repeat: no-repeat;
+                                        background-position: center;
+                                    ">
+                                    
+                                </div>
+
+                                <div class="product-body">
+                                    <h3 class="product__name">
+                                        Laptop chính hiệu
+                                    </h3>
+
+                                    <div class="product__discount">
+                                        <svg
+                                            class="product__discount-decor"
+                                            viewBox="-0.5 -0.5 4 16">
+                                            <path
+                                                d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
+                                                stroke-width="1"
+                                                transform=""
+                                                stroke="currentColor"
+                                                fill="#f69113"></path>
+                                        </svg>
+                                        <div
+                                            class="product__discount-price">
+                                            10%
+                                        </div>
+                                        <svg
+                                            class="product__discount-decor"
+                                            viewBox="-0.5 -0.5 4 16">
+                                            <path
+                                                d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
+                                                stroke-width="1"
+                                                transform="rotate(180) translate(-3 -15)"
+                                                stroke="currentColor"
+                                                fill="#f69113"></path>
+                                        </svg>
+                                    </div>
+
+                                    <div class="product__info">
+                                        <span
+                                            class="product__info-price"
+                                            >120.000.000đ</span
+                                        >
+                                    </div>
+                                </div>
+
+                                <div class="product__favourite">
+                                    <span>Yêu Thích</span>
+                                </div>
+                                <button class="product-hover-footer">
+                                    Thêm vào giỏ hàng
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <button onclick="showInfoMessage()" class="btn btn-more"> -->
+                <button onclick="history.go(0)" class="btn btn-more">
+                    Xem thêm
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="scroll-to-top">
+    <a
+        class="scroll-to-top"
+        onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+<footer class="footer">
+    <div class="about grid">
+        <p>Đây là một dòng mô tả về shop</p>
+        <p>Nhóm 16 - Học phần thực tập cơ sở ngành </p>
+        <p>Thành viên: 1. Nguyễn Trung Hiếu; 2. Nguyễn Mạnh Hoàn; 3. Đào Quốc Huy </p>
+
+    </div>
+
+    <div class="contact">
+        <div class="grid contact__content">
+            <div class="contact__col">
+                <h3>Chăm sóc khách hàng</h3>
+                <a href="">Trung tâm trợ giúp</a>
+                <a href="">Hướng dẫn bán hàng</a>
+                <a href="">Thanh toán</a>
+                <a href="">Vận chuyển</a>
+                <a href="">Trả hàng & Hoàn tiền</a>
+                <a href="">Chính sách bảo hành</a>
+            </div>
+            <div class="contact__col">
+                <h3>Về chúng tôi</h3>
+                <a href="">Giới thiệu về Nhóm 16</a>
+                <a href="">Tuyển dụng</a>
+                <a href="">Điều khoản</a>
+                <a href="">Chính sách bảo mật</a>
+                <a href="">Chính hãng</a>
+                <a href="">Kênh người bán</a>
+                <a href="">Chính sách bảo hành</a>
+            </div>
+
+            <div class="contact__col">
+                <h3>Thanh toán</h3>
+                <img  src="images/Purchase.png" alt="" width="80%">
+                <h3>Đơn vị vận chuyển</h3>
+                <img  src="images/Ship.png" alt="" width="80%">
+            </div>
+            
+
+            <div class="contact__col">
+                <h3>Theo dõi chúng tôi trên</h3>
+                <a href="https://www.fb.com/Trun9Hj3u">
+                    <i class="fab fa-facebook"></i>
+                    Facebook
+                </a>
+                <a href="https://www.fb.com/Trun9Hj3u">
+                    <i class="fab fa-instagram"></i>
+                    Instagram
+                </a>
+                <a href="https://www.fb.com/Trun9Hj3u">
+                    <i class="fab fa-youtube"></i>
+                    Youtube
+                </a>
+            </div>
+
+            <div class="contact__col">
+                <h3>Tải ứng dụng Sọp pé ngay thôi</h3>
+                <a href=""class="download">
+                    <img  src="images/QrCode.jpg" alt="qrcode" class="qrcode-img">
+                    <div class="download__app">
+                        <img  src="images/appstore.png" alt="Appstore" class="qr-img-app">
+                        <img  src="images/ggplay.png" alt="Google Play" class="qr-img-app">
+                    </div>
+
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div id="toast"></div>
+</body>
 </html>
