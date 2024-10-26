@@ -1,0 +1,66 @@
+<header class="header">
+    <div class="grid">
+        <%- include('navbar.ejs') %>
+        <!-- /* Header with search */ -->
+
+        <div class="header-with-search">
+            <!-- Logo -->
+
+            <div class="header__logo">
+                <a href="/" class="header__logo-link">
+                    GROUP 16
+                </a>
+            </div>
+
+            <!-- Search -->
+
+            <div class="header-search">
+                <input
+                    type="text"
+                    class="header-search__inp"
+                    placeholder="Nhập sản phẩm cần tìm" />
+
+                <div class="header-search__history">
+                    <h3 class="header-search__history-heading">
+                        Lịch sử tìm kiếm
+                    </h3>
+                    <ul class="header-search__history-list">
+                        <li class="header-search__history-item">
+                            <a href="#"> Test1 </a>
+                        </li>
+                        <li class="header-search__history-item">
+                            <a href="#"> Test2 </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <button class="header-search__btn">
+                    <i
+                        class="fas fa-search header-search__btn-icon"></i>
+                </button>
+            </div>
+
+            <!-- Cart -->
+
+            <div class="header-cart">
+                <div
+                    class="header-cart__list header-cart__list--empty"
+                    style="z-index: 2">
+                    <!-- Empty -->
+                    <img
+                        src="images/nocart.png"
+                        class="header-cart__list--empty-img" />
+                    <span class="header-cart__list--empty-msg">
+                        Chưa có sản phẩm
+                    </span>
+                </div>
+
+                <a href="">
+                    <i
+                        class="header-cart__icon fas fa-cart-plus"></i>
+                    <span class="header-cart__quantity">1</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
