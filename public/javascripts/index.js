@@ -76,6 +76,6 @@ signInForm.addEventListener('submit', (e) => {
         }
     })
     .catch(err => {
-        console.log(err.message)
+        console.log(err)
     })
 }) 
