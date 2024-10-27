@@ -8,7 +8,7 @@ const login = (req, res) => {
             return res.status(500).json({ status: 500, message: 'Đã xảy ra lỗi' });
         }
         if (!user) {
-            return res.status(401).json({ statusbar: 401, message: 'Email hoặc mật khẩu không chính xác '});
+            return res.status(401).json({ status: 401, message: 'Email hoặc mật khẩu không chính xác '});
         }
 
         req.session.user = {
@@ -16,7 +16,7 @@ const login = (req, res) => {
             name: user.name
         };
 
-        res.redirect('/');
+        return res.status(200).json({ status: 200, message: 'Đăng nhập thành công'});
 
     });
 };
