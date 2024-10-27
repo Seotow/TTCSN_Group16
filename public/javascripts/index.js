@@ -78,4 +78,35 @@ signInForm.addEventListener('submit', (e) => {
     .catch(err => {
         console.log(err.message)
     })
-}) 
+}); 
+
+
+signUpForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const name = e.target.querySelector('input[name="name"]').value; // thêm trường tên
+    const phone = e.target.querySelector('input[name="phone"]').value; // thêm trường điện thoại
+    const email = e.target.querySelector('input[name="email"]').value;
+    const password = e.target.querySelector('input[name="password"]').value;
+
+    // Gửi yêu cầu đăng ký
+    fetch('/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, phone, email, password }) // bao gồm tên và điện thoại
+    })
+    .then(response => response.json())
+    .then(response => {
+        if (response.status === 200) {
+            window.location.href = '/';
+            showSuccessMessage(response.message);
+        } else {
+            showErrorMessage(response.message);
+        }
+    })
+    .catch(err => {
+        console.log(err.message);
+    });
+});
