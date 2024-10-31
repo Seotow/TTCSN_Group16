@@ -28,7 +28,6 @@ SET time_zone = "+00:00";
 -- Table structure for table `bills`
 --
 
-
 CREATE TABLE `bills` (
   `id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,

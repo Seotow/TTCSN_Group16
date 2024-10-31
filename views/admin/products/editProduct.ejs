@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm sản phẩm</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../stylesheets/base.css" />
+    <link rel="stylesheet" href="../../../stylesheets/style.css" />
+</head>
+<body>
+    <%- include('../menu') %>
+    <div class="admin-main">
+    
+    <%- include('../topbar') %>
+  
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Quản lí sản phẩm > Sửa</h4>
+            <div class="table-responsive">
+                <form action="../edit/<%= product.id %>" id="form_update-prod" class="table-form" method="post" enctype="multipart/form-data">
+                    <div class="form-group table-form-group">
+                        <label for="name">Tên sản phẩm</label>
+                        <input rules="required" class="form-control" type="text" name="name" id="name" value="<%= product.name %>">
+                        <span class="form-message"></span>
+                    </div>
+                    <div class="form-group table-form-group">
+                        <label for="image_new">Ảnh</label>
+                        <input type="file" name="image_new">
+                        <label for="image_old">Hoặc giữ ảnh cũ</label>
+
+                        <input type="hidden" name="image_old" value="<%= product.image %>"/>
+                        <img src="../../../images/products/<%= product.image %>" height="100px" >
+                    </div>
+                    <div class="form-group table-form-group">
+                        <label for="price">Giá</label>
+
+                        <input rules="required" class="form-control" type="text" name="price" value="<%= product.price %>">
+                        <span class="form-message"></span>
+                    </div>
+                    <div class="form-group table-form-group">
+                        <label for="quantity">Số lượng</label>
+
+                        <input rules="required" class="form-control" type="text" name="quantity" value="<%= product.quantity %>">
+                        <span class="form-message"></span>
+                    </div>
+                    <div class="form-group table-form-group">
+                        <label for="description">Mô tả</label>
+
+                        <textarea name="description" placeholder="Mô tả sản phẩm" id="description" rows="3"><%= product.description %></textarea> 
+                    </div>
+                    <div class="form-group table-form-group">
+                        <label for="manufacturer">Nhà sản xuất</label>
+
+                        <select name="manufacturer_id">
+                            <% manufacturers.forEach(manufacturer => { %>
+                                
+                                <option
+                                    value="<%= manufacturer.id %>"
+                                    <% if (manufacturer.id == product.manufacturer_id) { %>
+                                        selected 
+                                    <% } %>
+                                >
+                                    <%= manufacturer.name %>
+                                </option>
+                            <% }); %>
+                        </select>
+
+                    </div>
+                    <div class="form-group table-form-group">
+                        <label for="category">Thể loại</label>
+
+                        <select name="category_id">
+                            <% categories.forEach(category => { %>
+                                
+                                <option
+                                    value="<%= category.id %>"
+                                    <% if (category.id == product.category_id) { %>
+                                        selected 
+                                    <% } %>
+                                >
+                                    <%= category.name %>
+                                </option>
+                            <% }); %>
+                        </select>
+
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sửa</button>
+                    <a class="btn btn-secondary" href="../../products">Hủy</a>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div id="toast"></div>
+
+    <script src="../../../javascripts/validator.js"></script>
+    <script src="../../../javascripts/toast.js"></script>
+
+    <script>
+        // Validator('#form_insert-prod')
+    </script>
+
+
+</body>
+</html>
