@@ -56,6 +56,7 @@ signInForm.addEventListener('submit', (e) => {
 
     const email = e.target.querySelector('input[name="email"]').value;
     const password = e.target.querySelector('input[name="password"]').value;
+    const rememberMe = document.getElementById("rememberMe").checked;
 
     // Fetch by email and password
     fetch('/login', {
@@ -63,7 +64,7 @@ signInForm.addEventListener('submit', (e) => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password, rememberMe })
     })
     .then(response => response.json())
     .then(response => {

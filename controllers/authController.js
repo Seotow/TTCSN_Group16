@@ -1,7 +1,7 @@
 const userModel = require('../models/userModel');
 
 const login = (req, res) => {
-    const { email, password } = req.body;
+    const { email, password, rememberMe } = req.body;
 
     userModel.getUserByEmailAndPassword(email, password, (err, user) => {
         if (err) {
@@ -16,18 +16,21 @@ const login = (req, res) => {
             name: user.name
         };
 
+        if (rememberMe) {
+            req.session.cookie.maxAge = 7 * (24 * 60 * 60 * 1000); //7 days default
+        } else {
+            req.session.cookie.expires = false; 
+        }
+
+
         return res.status(200).json({ status: 200, message: 'Đăng nhập thành công'});
 
     });
 };
 
 const logout = (req, res) => {
-    req.session.destroy((err) => {
-        if (err) {
-            return res.status(500).send('Đã xảy ra lỗi khi đăng xuất');
-        }
-        res.redirect('/');
-    });
+    delete req.session.user;
+    res.redirect('/');
 
 };
 
@@ -62,5 +65,5 @@ const register = (req, res) => {
 module.exports = {
     login,
     logout,
-    register
+    register,
 };

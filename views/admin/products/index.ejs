@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý sản phẩm</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../stylesheets/base.css" />
+    <link rel="stylesheet" href="../../stylesheets/style.css" />
+</head>
+<body>
+    <%- include('../menu') %>
+
+    <div class="admin-main">
+        <%- include('../topbar') %>
+        
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Quản lí sản phẩm</h4>
+                <p class="card-description">
+                    <a class="card-add"href="products/add">
+                        Thêm sản phẩm
+                    </a>
+                </p>
+                <div class="table-responsive">
+                <table class="table-form">
+                    <thead>
+                        <tr>
+                            <th class="table-form-thead">Mã</th>
+                            <th class="table-form-thead">Tên</th>
+                            <th class="table-form-thead">Ảnh</th>
+                            <th class="table-form-thead">Giá</th>
+                            <th class="table-form-thead">Tên nhà sản xuất</th>
+                            <th class="table-form-thead">Thể loại</th>
+                            <th class="table-form-thead">Số lượng</th>
+                            <th class="table-form-thead">Sửa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% products.forEach(product => { %>
+                            <tr>
+                                <td class="table-form-item"><%= product.id%></td>
+                                <td class="table-form-item"><%= product.name%></td>
+                                <td class="table-form-item">
+                                    <img height="100" src="../images/products/<%= product.image %>">
+                                </td>
+                                <td class="table-form-item"><%= product.price %></td>
+                                <td class="table-form-item"><%= product.manufacturerName %></td>
+                                <td class="table-form-item"><%= product.categoryName %></td>
+                                <td class="table-form-item"><%= product.quantity %></td>
+                                <td class="table-form-item">
+                                    <a href="products/edit/<%= product.id %>">Sửa</a>
+                                </td>
+                            </tr>
+                            
+                        <%}); %>
+                        
+
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div id="toast"></div>
+
+    <script src="../javascripts/admin.js"></script>
+    <script src="../javascripts/toast.js"></script>
+
+</body>
+</html>

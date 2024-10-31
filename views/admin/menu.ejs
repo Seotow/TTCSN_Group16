@@ -1,0 +1,48 @@
+<div class="navigation">
+    <ul class="nav-list">
+        <li class="list-item brandname">
+            <a href="/admin/dashboard">
+                <span class="icon"></span>
+                <span class="title">Trang chủ</span>
+            </a>
+        </li>
+
+        <% if (session.admin.level == 1) { %>
+        <li class="list-item">
+            <a href="/admin/manufacturers">
+                <span class="icon"></span>
+                <span class="title">Quản lí nhà sản xuất</span>
+            </a>
+        </li>
+        <li class="list-item">
+            <a href="/admin/staffs">
+                <span class="icon"></span>
+                <span class="title">Quản lí nhân viên</span>
+            </a>
+        </li>
+            
+        <% } %>
+            
+        <li class="list-item">
+            <a href="/admin/products">
+                <span class="icon"></span>
+                <span class="title">Quản lí sản phẩm</span>
+            </a>
+        </li>
+        <li class="list-item">
+            <a href="/admin/categories">
+                <span class="icon"></span>
+                <span class="title">Quản lí thể loại</span>
+            </a>
+        </li>
+        <li class="list-item">
+            <a href="/admin/bills">
+                <span class="icon"></span>
+                <span class="title">Quản lí hóa đơn</span>
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+

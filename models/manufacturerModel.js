@@ -1,8 +1,8 @@
 const db = require('../config/db'); 
 
 // Lấy tất cả danh mục
-const getAllCategories = (callback) => {
-    const query = 'SELECT * FROM categories';
+const getAllManufacturers = (callback) => {
+    const query = 'SELECT * FROM manuFacturers';
     db.query(query, (err, results) => {
         if (err) {
             return callback(err, null);
@@ -12,5 +12,5 @@ const getAllCategories = (callback) => {
 };
 
 module.exports = {
-    getAllCategories
+    getAllManufacturers
 };

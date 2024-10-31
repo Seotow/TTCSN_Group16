@@ -1756,6 +1756,7 @@
 .table-form-group input {
   height: 32px;
   padding-left: 12px;
+  padding-top: 4px;
   border: 1px solid #dee2e6;
   font-size: 14px;
   display: block;
