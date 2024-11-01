@@ -14,7 +14,7 @@ const getStaffs = (req, res) => {
 };
 
 // Hàm xử lý yêu cầu xóa nhân viên
-exports.deleteStaff = (req, res) => {
+const deleteStaff = (req, res) => {
     const staffId = req.params.id; // Lấy ID từ tham số URL
 
     staffModel.deleteStaff(staffId, (err) => {
@@ -28,5 +28,6 @@ exports.deleteStaff = (req, res) => {
 };
 
 module.exports = {
-    getStaffs
+    getStaffs,
+    deleteStaff,
 };

@@ -1,5 +1,14 @@
 const db = require('../config/db');
 
+// format date to yyyy-mm-dd
+const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+};
+
 // Hàm lấy danh sách nhân viên từ database
 const getAllStaffs = (callback) => {
     const sql = 'SELECT * FROM staffs';
@@ -7,6 +16,10 @@ const getAllStaffs = (callback) => {
         if (err) {
             return callback(err);
         }
+
+        results.forEach(staff => {
+            staff.birthdate = formatDate(staff.birthdate);
+        });
         callback(null, results);
     });
 };
@@ -59,7 +72,15 @@ const getStaffById = (id, callback) => {
     const sql = `SELECT * FROM staffs WHERE id = ?`;
     db.query(sql, [id], (err, results) => {
         if (err) return callback(err);
-        callback(null, results[0]);
+
+        if (results.length > 0) {
+            const staff = results[0];
+            // Format the birthdate to YYYY-MM-DD
+            staff.birthdate = formatDate(staff.birthdate);
+            callback(null, staff);
+        } else {
+            callback(null, null);
+        }
     });
 };
 
