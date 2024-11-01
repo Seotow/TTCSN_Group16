@@ -1,6 +1,7 @@
 const productModel = require('../models/productModel')
 const categoryModel = require('../models/categoryModel')
 const manufacturerModel = require('../models/manufacturerModel')
+const staffModel = require('../models/staffModel')
 
 const fs = require('fs')
 const multer = require('multer');
@@ -113,7 +114,75 @@ const deleteProduct = (req, res) => {
     });
 };
 
+// Hiển thị danh sách nhân viên
+const showStaffs = (req, res) => {
+    staffModel.getAllStaffs((err, staffs) => {
+        if (err) return res.status(500).send('Lỗi kết nối cơ sở dữ liệu');
+        res.render('admin/staffs/index', { staffs });
+    });
+};
 
+// Hiển thị form thêm nhân viên
+const getAddStaffForm = (req, res) => {
+    res.render('admin/staffs/addStaff');
+};
+
+// Thêm nhân viên
+const addStaff = (req, res) => {
+    const { name, gender, birthdate, phone, address, email, password, level } = req.body;
+
+    // Chuyển gender thành số nguyên
+    const genderValue = parseInt(gender);
+
+    staffModel.addStaff({ name, gender: genderValue, birthdate, phone, address, email, password, level }, (err) => {
+        if (err) return res.status(500).send('Lỗi khi thêm nhân viên' +err.message);
+        res.redirect('/admin/staffs');
+    });
+};
+
+// Hiển thị form sửa thông tin nhân viên
+const showEditStaffForm = (req, res) => {
+    const { id } = req.params;
+    staffModel.getStaffById(id, (err, staff) => {
+        if (err) return res.status(500).send('Lỗi khi lấy thông tin nhân viên');
+        if (!staff) return res.status(404).send('Nhân viên không tồn tại');
+
+        // Chuyển đổi giá trị gender thành Nam/Nữ
+        staff.genderText = staff.gender === 0 ? 'Nữ' : 'Nam';
+
+        res.render('admin/staffs/editStaff', { staff });
+    });
+};
+
+// Cập nhật thông tin nhân viên
+const editStaff = (req, res) => {
+    const { id } = req.params;
+    const { name, gender, birthdate, phone, address, email, password, level } = req.body;
+    const staffData = { name, gender, birthdate, phone, address, email, level };
+
+    // Nếu có mật khẩu mới, thêm vào staffData
+    if (password) {
+        staffData.password = password; // Lưu mật khẩu dưới dạng văn bản thuần
+    }
+
+    staffModel.updateStaff(id, staffData, (err) => {
+        if (err) return res.status(500).send('Lỗi khi cập nhật thông tin nhân viên');
+        res.redirect('/admin/staffs');
+    });
+};
+
+// Xóa nhân viên
+const deleteStaff = (req, res) => {
+    const { id } = req.params;
+    staffModel.deleteStaff(id, (err) => {
+        if (err) return res.status(500).send('Lỗi khi xóa nhân viên');
+        res.redirect('/admin/staffs');
+    });
+};
+
+
+
+// Xuất các hàm cho sử dụng trong các tệp khác
 module.exports = {
     showDashboard,
     getCategoryAndManufacturer,
@@ -123,5 +192,13 @@ module.exports = {
     editProduct,
     deleteProduct,
     uploadProduct,
-    uploadCategory
-}
+    uploadCategory,
+    showStaffs,
+    getAddStaffForm,
+    addStaff,
+    showEditStaffForm,
+    editStaff,
+    deleteStaff,
+};
+
+
