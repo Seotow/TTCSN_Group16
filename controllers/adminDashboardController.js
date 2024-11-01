@@ -144,6 +144,7 @@ const addStaff = (req, res) => {
 const showEditStaffForm = (req, res) => {
     const { id } = req.params;
     staffModel.getStaffById(id, (err, staff) => {
+        console.log(staff)
         if (err) return res.status(500).send('Lỗi khi lấy thông tin nhân viên');
         if (!staff) return res.status(404).send('Nhân viên không tồn tại');
 
@@ -157,15 +158,11 @@ const showEditStaffForm = (req, res) => {
 // Cập nhật thông tin nhân viên
 const editStaff = (req, res) => {
     const { id } = req.params;
-    const { name, gender, birthdate, phone, address, email, password, level } = req.body;
-    const staffData = { name, gender, birthdate, phone, address, email, level };
-
-    // Nếu có mật khẩu mới, thêm vào staffData
-    if (password) {
-        staffData.password = password; // Lưu mật khẩu dưới dạng văn bản thuần
-    }
+    const { name, gender, birthdate, phone, address, email, password } = req.body;
+    const staffData = { name, gender, birthdate, phone, address, email, password };
 
     staffModel.updateStaff(id, staffData, (err) => {
+        console.log(err);
         if (err) return res.status(500).send('Lỗi khi cập nhật thông tin nhân viên');
         res.redirect('/admin/staffs');
     });

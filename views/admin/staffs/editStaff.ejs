@@ -34,6 +34,7 @@
                         </div>
                         <div class="form-group table-form-group">
                             <label for="birthdate">Ngày sinh</label>
+                            <% console.log(staff) %>
                             <input class="form-control" type="date" name="birthdate" id="birthdate" value="<%= staff.birthdate %>">
                         </div>
                         <div class="form-group table-form-group">
@@ -48,6 +49,10 @@
                         <div class="form-group table-form-group">
                             <label for="email">Email</label>
                             <input class="form-control" type="email" name="email" id="email" value="<%= staff.email %>">
+                        </div>
+                        <div class="form-group table-form-group">
+                            <label for="password">Password</label>
+                            <input class="form-control" type="password" name="password" id="password" value="<%= staff.password %>">
                         </div>
                         <button type="submit" class="btn btn-primary">Sửa</button>
                         <a class="btn btn-secondary" href="../../staffs">Hủy</a>
