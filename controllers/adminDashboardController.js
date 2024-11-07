@@ -178,6 +178,71 @@ const deleteStaff = (req, res) => {
 };
 
 
+// Hiển thị danh sách thể loại
+const showCategories = (req, res) => {
+    categoryModel.getAllCategories((err, categories) => {
+        if (err) return res.status(500).send('Lỗi kết nối cơ sở dữ liệu');
+        res.render('admin/categories/index', { categories });
+    });
+};
+
+// Hiển thị form thêm thể loại
+const getAddCategoryForm = (req, res) => {
+    res.render('admin/categories/addCategory');
+};
+
+// Thêm thể loại
+const addCategory = (req, res) => {
+    const { name, description } = req.body;
+    const image = req.file ? req.file.filename : null; 
+
+    categoryModel.addCategory({ name, description, image }, (err) => {
+        if (err) return res.status(500).send('Lỗi khi thêm thể loại');
+        res.redirect('/admin/categories');
+    });
+};
+
+// Hiển thị form chỉnh sửa thể loại
+const showEditCategoryForm = (req, res) => {
+    const { id } = req.params;
+    categoryModel.getCategoryById(id, (err, category) => {
+        if (err) return res.status(500).send('Lỗi khi lấy thông tin thể loại');
+        if (!category) return res.status(404).send('Thể loại không tồn tại');
+        res.render('admin/categories/editCategory', { category });
+    });
+};
+
+// Chỉnh sửa thể loại
+const editCategory = (req, res) => {
+    const { id } = req.params;
+    const { name, description, image_old } = req.body;
+    const image_new = req.file ? req.file.filename : null;
+
+    // Nếu có ảnh mới thì xóa ảnh cũ
+    if (image_new) {
+        const oldImagePath = path.join(__dirname, '../public/images/categories', image_old);
+        fs.unlink(oldImagePath, (err) => {
+            if (err) console.error('Lỗi khi xóa hình ảnh cũ:', err);
+        });
+    }
+
+    const image = image_new || image_old;
+
+    categoryModel.updateCategory(id, { name, description, image }, (err) => {
+        if (err) return res.status(500).send('Lỗi khi cập nhật thể loại');
+        res.redirect('/admin/categories');
+    });
+};
+
+// Xóa thể loại
+const deleteCategory = (req, res) => {
+    const { id } = req.params;
+    categoryModel.deleteCategory(id, (err) => {
+        if (err) return res.status(500).send('Lỗi khi xóa thể loại');
+        res.redirect('/admin/categories');
+    });
+};
+
 
 // Xuất các hàm cho sử dụng trong các tệp khác
 module.exports = {
@@ -196,6 +261,12 @@ module.exports = {
     showEditStaffForm,
     editStaff,
     deleteStaff,
+    showCategories, 
+    getAddCategoryForm, 
+    addCategory,  
+    showEditCategoryForm,  
+    editCategory,  
+    deleteCategory, 
 };
 
 

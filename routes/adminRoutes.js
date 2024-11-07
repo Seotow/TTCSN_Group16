@@ -35,4 +35,12 @@ router.get('/staffs/edit/:id', adminDashboardController.showEditStaffForm);
 router.post('/staffs/edit/:id', adminDashboardController.editStaff); 
 router.post('/staffs/delete/:id', adminDashboardController.deleteStaff); 
 
+// Admin category management
+router.get('/categories', adminDashboardController.showCategories); 
+router.get('/categories/add', adminDashboardController.getAddCategoryForm); 
+router.post('/categories/add', adminDashboardController.uploadCategory.single('image'), adminDashboardController.addCategory);  
+router.get('/categories/edit/:id', adminDashboardController.showEditCategoryForm);
+router.post('/categories/edit/:id', adminDashboardController.uploadCategory.single('image_new'), adminDashboardController.editCategory);  
+router.post('/categories/delete/:id', adminDashboardController.deleteCategory);  
+
 module.exports = router;
