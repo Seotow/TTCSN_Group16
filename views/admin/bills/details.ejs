@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết đơn hàng</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/stylesheets/base.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+
+<%- include('../menu') %>
+
+<div class="admin-main">
+    <%- include('../topbar') %>
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Chi tiết đơn hàng</h4>
+            <div class="table-responsive">
+                <table class="table-form">
+                    <thead>
+                        <tr>
+                            <th>Ảnh</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Tổng tiền (VNĐ)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% 
+                            let sum = 0;
+                            if (details && details.length) {
+                                details.forEach(detail => { 
+                                    const total = detail.price * detail.quantity;
+                                    sum += total;
+                        %>
+                        <tr>
+                            <td><img height="100" src="/assets/images/products/<%= detail.image %>" alt="<%= detail.name %>"></td>
+                            <td><%= detail.name %></td>
+                            <td>đ<%= detail.price %></td>
+                            <td><%= detail.quantity %></td>
+                            <td><%= total %> </td>
+                        </tr>
+                        <% 
+                                });
+                            } else { 
+                        %>
+                            <tr><td colspan="5">Không có chi tiết đơn hàng</td></tr>
+                        <% } %>
+                        <tr>
+                            <td>Tổng</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td style="font-weight: 700"><%= sum %></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="order-actions">
+                <% if (bill) { %>
+                    <!-- Form duyệt đơn hàng -->
+                    <form action="/admin/bills/approve/<%= bill.id %>" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn duyệt đơn này?');">
+                        <button type="submit" class="approve-link">Duyệt đơn</button>
+                    </form>
+                    <!-- Form hủy đơn hàng -->
+                    <form action="/admin/bills/cancel/<%= bill.id %>" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn hủy đơn này?');">
+                        <button type="submit" class="cancel-link">Hủy đơn</button>
+                    </form>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="toast"></div>
+
+<script src="../../javascripts/validator.js"></script>
+<script src="../../javascripts/toast.js"></script>
+
+</body>
+</html>

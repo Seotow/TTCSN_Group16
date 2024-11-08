@@ -4,6 +4,7 @@ const adminAuthController = require('../controllers/adminAuthController');
 const adminDashboardController = require('../controllers/adminDashboardController');
 const productController = require('../controllers/productController');
 const staffController = require('../controllers/staffController');
+const billController = require('../controllers/billController'); 
 
 //Middleware
 function checkSession(req, res, next) {
@@ -42,5 +43,12 @@ router.post('/categories/add', adminDashboardController.uploadCategory.single('i
 router.get('/categories/edit/:id', adminDashboardController.showEditCategoryForm);
 router.post('/categories/edit/:id', adminDashboardController.uploadCategory.single('image_new'), adminDashboardController.editCategory);  
 router.post('/categories/delete/:id', adminDashboardController.deleteCategory);  
+
+// Admin bill management (Quản lý đơn hàng)
+router.get('/bills', adminDashboardController.showBills);
+router.get('/bills/:id', adminDashboardController.showBillDetails);
+router.get('/bills/details/:id', adminDashboardController.showBillDetails);
+router.post('/bills/approve/:id', adminDashboardController.approveBill);
+router.post('/bills/cancel/:id', adminDashboardController.cancelBill);
 
 module.exports = router;

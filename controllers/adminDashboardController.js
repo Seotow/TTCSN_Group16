@@ -2,6 +2,7 @@ const productModel = require('../models/productModel')
 const categoryModel = require('../models/categoryModel')
 const manufacturerModel = require('../models/manufacturerModel')
 const staffModel = require('../models/staffModel')
+const billModel = require('../models/billModel');
 
 const fs = require('fs')
 const multer = require('multer');
@@ -244,6 +245,78 @@ const deleteCategory = (req, res) => {
 };
 
 
+
+// Controller hiển thị danh sách hóa đơn
+const showBills = (req, res) => {
+    billModel.getAllBills((err, bills) => {
+        if (err) {
+            console.error('Lỗi khi lấy danh sách hóa đơn:', err);
+            return res.status(500).send('Đã xảy ra lỗi khi lấy danh sách hóa đơn');
+        }
+        res.render('admin/bills', { bills });
+    });
+};
+
+// Controller hiển thị chi tiết của một hóa đơn
+const showBillDetails = (req, res) => {
+    const billId = req.params.id;
+
+    // Lấy thông tin hóa đơn từ bảng BILLS
+    billModel.getBillById(billId, (err, bill) => {
+        if (err) {
+            console.error('Lỗi khi lấy thông tin hóa đơn:', err);
+            return res.status(500).send('Đã xảy ra lỗi khi lấy thông tin hóa đơn');
+        }
+
+        if (!bill) {
+            return res.status(404).send('Không tìm thấy hóa đơn');
+        }
+
+        // Lấy chi tiết hóa đơn từ bảng DETAILS_BILLS và PRODUCTS
+        billModel.getBillDetailsById(billId, (err, details) => {
+            if (err) {
+                console.error('Lỗi khi lấy chi tiết hóa đơn:', err);
+                return res.status(500).send('Đã xảy ra lỗi khi lấy chi tiết hóa đơn');
+            }
+
+            res.render('admin/billDetails', {
+                bill,
+                details
+            });
+        });
+    });
+};
+
+// Controller xử lý duyệt đơn hàng
+const approveBill = (req, res) => {
+    const billId = req.params.id;
+
+    billModel.updateBillStatus(billId, 'Đã duyệt', (err) => {
+        if (err) {
+            console.error('Lỗi khi duyệt đơn:', err);
+            return res.status(500).send('Đã xảy ra lỗi khi duyệt đơn');
+        }
+        req.flash('success', 'Duyệt đơn thành công');
+        res.redirect('/admin/bills');
+    });
+};
+
+// Controller xử lý hủy đơn hàng
+const cancelBill = (req, res) => {
+    const billId = req.params.id;
+
+    billModel.updateBillStatus(billId, 'Đã hủy', (err) => {
+        if (err) {
+            console.error('Lỗi khi hủy đơn:', err);
+            return res.status(500).send('Đã xảy ra lỗi khi hủy đơn');
+        }
+        req.flash('success', 'Hủy đơn thành công');
+        res.redirect('/admin/bills');
+    });
+};
+
+
+
 // Xuất các hàm cho sử dụng trong các tệp khác
 module.exports = {
     showDashboard,
@@ -266,7 +339,11 @@ module.exports = {
     addCategory,  
     showEditCategoryForm,  
     editCategory,  
-    deleteCategory, 
+    deleteCategory,
+    showBills,
+    showBillDetails,
+    approveBill,
+    cancelBill 
 };
 
 
