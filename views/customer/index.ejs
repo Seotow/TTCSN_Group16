@@ -74,7 +74,7 @@
 
                         <% products.forEach(product => { %>
                         <div class="grid__col-2 product">
-                            <a href="#" class="product-item product--discount product--favourite">
+                            <a href="" class="product-item product--favourite">
                                 <div class="product__img"
                                     style="
                                         background-image: url('./images/products/<%= product.image%>');
@@ -91,44 +91,29 @@
                                     </h3>
 
                                     <div class="product__discount">
-                                        <svg
-                                            class="product__discount-decor"
-                                            viewBox="-0.5 -0.5 4 16">
-                                            <path
-                                                d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                                stroke-width="1"
-                                                transform=""
-                                                stroke="currentColor"
-                                                fill="#f69113"></path>
-                                        </svg>
                                         <div
                                             class="product__discount-price">
                                             10%
                                         </div>
-                                        <svg
-                                            class="product__discount-decor"
-                                            viewBox="-0.5 -0.5 4 16">
-                                            <path
-                                                d="M4 0h-3q-1 0 -1 1a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3v0.333a1.2 1.5 0 0 1 0 3q0 1 1 1h3"
-                                                stroke-width="1"
-                                                transform="rotate(180) translate(-3 -15)"
-                                                stroke="currentColor"
-                                                fill="#f69113"></path>
-                                        </svg>
                                     </div>
 
-                                    <div class="product__info">
-                                        <span
-                                            class="product__info-price"
-                                            ><%= product.price %></span
-                                        >
+                                    <div class="product__info product__info--quantity">
+                                        <span class="product__info-price"><%= product.price %></span>
+                                        <span class="product__info-quantity">Còn <%= product.quantity %></span>
                                     </div>
                                 </div>
 
                                 <!-- <div class="product__favourite">
                                     <span>Yêu Thích</span>
                                 </div> -->
-                                <button class="product-hover-footer">
+                                <button 
+                                    class="product-hover-footer" 
+                                    data-id="<%= product.id %>" 
+                                    data-quantity="<%= product.quantity %>"
+                                    data-image="<%= product.image %>"
+                                    data-name="<%= product.name %>"
+                                    data-price="<%= product.price %>"
+                                    >
                                     Thêm vào giỏ hàng
                                 </button>
                             </a>
@@ -139,7 +124,7 @@
                 </div>
 
                 <!-- <button onclick="showInfoMessage()" class="btn btn-more"> -->
-                <button onclick="history.go(0)" class="btn btn-more">
+                <button class="btn btn-more">
                     Xem thêm
                 </button>
             </div>
@@ -187,30 +172,30 @@
 
             <div class="contact__col">
                 <h3>Thanh toán</h3>
-                <img  src="images/Purchase.png" alt="" width="80%">
+                <img  src="" alt="Thanh toán" width="80%">
                 <h3>Đơn vị vận chuyển</h3>
-                <img  src="images/Ship.png" alt="" width="80%">
+                <img  src="" alt="Đơn vị vận chuyển" width="80%">
             </div>
             
 
             <div class="contact__col">
                 <h3>Theo dõi chúng tôi trên</h3>
-                <a href="https://www.fb.com/Trun9Hj3u">
+                <a href="https://www.fb.com/Seotoww">
                     <i class="fab fa-facebook"></i>
                     Facebook
                 </a>
-                <a href="https://www.fb.com/Trun9Hj3u">
+                <a href="https://www.fb.com/Seotoww">
                     <i class="fab fa-instagram"></i>
                     Instagram
                 </a>
-                <a href="https://www.fb.com/Trun9Hj3u">
+                <a href="https://www.fb.com/Seotoww">
                     <i class="fab fa-youtube"></i>
                     Youtube
                 </a>
             </div>
 
             <div class="contact__col">
-                <h3>Tải ứng dụng Sọp pé ngay thôi</h3>
+                <h3>Tải ứng dụng ngay thôi</h3>
                 <a href=""class="download">
                     <img  src="images/QrCode.jpg" alt="qrcode" class="qrcode-img">
                     <div class="download__app">
@@ -227,7 +212,14 @@
 <div id="toast"></div>
 
     <script src="javascripts/validator.js"></script>
+    <script src="javascripts/convertPrice.js"></script> 
     <script src="javascripts/toast.js"></script>
     <script src="javascripts/index.js"></script>
+
+    <script>
+        Validator('#signup-form')
+        Validator('#signin-form')
+    </script>
+    <%- include('../message.ejs') %>
 </body>
 </html>

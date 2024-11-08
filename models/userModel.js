@@ -31,4 +31,23 @@ const createUser = (name, phone, email, password, callback) => {
     db.query(query, [name, phone, email, password], callback);
 };
 
-module.exports = { getUserByEmailOrPhone, createUser, getUserByEmailAndPassword };
+const getUserById = (userId, callback) => {
+    const query = 'SELECT * FROM customers WHERE id = ?'
+    db.query(query, [userId], (err, results) => {
+        if (err) {
+            return callback(err, null);
+        }
+        if (results.length > 0) {
+            callback(null, results[0]);
+        } else {
+            callback(null, null);
+        }
+    })
+}
+
+module.exports = { 
+    getUserByEmailOrPhone, 
+    createUser, 
+    getUserByEmailAndPassword, 
+    getUserById 
+};

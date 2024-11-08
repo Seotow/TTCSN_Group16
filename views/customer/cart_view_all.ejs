@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ hàng của tôi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./stylesheets/base.css">
+    <link rel="stylesheet" href="./stylesheets/style.css">
+</head>
+<body>
+    <div class="cart-main">
+
+        <%- include('./navbar.ejs') %>
+        <% if (!session.user) { %>
+        <% session.message = { type: "error", text: "Vui lòng đăng nhập"} %>
+            <script>
+                window.location.href = '/';
+            </script>
+        <% }  %>
+        <% var sum = 0; %>
+
+        <div class="content-section">
+            <div class="grid content">
+                <div class="grid__row">
+                    <header class="cart-content cart-header">
+                        <div class="cart-product">
+                            Sản phẩm
+                        </div>
+                        <div class="cart-price">
+                            Đơn giá
+                        </div>                
+                        <div class="cart-quantity">
+                            Số lượng
+                        </div>                
+                        <div class="cart-sum-price">
+                            Thành tiền
+                        </div>                
+                        <div class="cart-action">
+                            Thao tác
+                        </div>                
+                    </header>
+                </div>
+            </div>
+            <div class="grid content">
+                <div class="grid__row">
+                    <div class="cart-content cart-list">
+
+                    <% if (!session.cart) { %>
+                     
+                        <div class="empty-cart">
+                            <!-- Empty -->
+                            <img src="./assets/images/nocart.png" class="empty-cart-img">
+                            <span class="empty-cart-msg">
+                                Chưa có sản phẩm
+                            </span>
+
+                        </div>
+                    <% } else { %>
+                        
+                        <% cartProducts.forEach((cartItem, index) => { %>
+                    
+                        <div 
+                            class="cart-item" 
+                            data-id="<%= cartItem.id %>"
+                            data-index="<%= index %>"
+                            data-name="<%= cartItem.name %>"
+                            data-price="<%= cartItem.price %>"
+                            data-buyquantity="<%= session.cart[index].buyQuantity %>"
+                        >
+                            <div class="cart-product">
+                                <!-- <div class="cart-product-img" background="url('./assets/images/nocart.png')"></div> -->
+                                <img src="./images/products/<%= cartItem.image %>" class="cart-product-img"> 
+                                <div class="cart-poduct-name">
+                                    <%= cartItem.name %>
+                                </div>
+                            </div>
+                            <div class="cart-price">
+                               <%= cartItem.price %>
+                            </div>                
+                            <div class="cart-quantity">
+                                <a class="product-details-btn minus-btn" data-index="<%= index %>" data-type="decrease"><svg width="10px" enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" ><polygon points="4.5 4.5 3.5 4.5 0 4.5 0 5.5 3.5 5.5 4.5 5.5 10 5.5 10 4.5"></polygon></svg></a>
+                                <input class="product-details-btn product-details-input" type="text" role="spinbutton" value="<%= session.cart[index].buyQuantity %>">
+                                <a class="product-details-btn plus-btn" data-index="<%= index %>" data-type="increase"><svg width="10px" enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" ><polygon points="10 4.5 5.5 4.5 5.5 0 4.5 0 4.5 4.5 0 4.5 0 5.5 4.5 5.5 4.5 10 5.5 10 5.5 5.5 10 5.5"></polygon></svg></a>
+                            </div>    
+                            <% const result = session.cart[index].buyQuantity * cartItem.price %>
+                            <% sum += result %>
+                            <div class="cart-sum-price">
+                                <%= result %>
+                            </div>                
+                            <div class="cart-action">
+                                <a href="javascript:void(0);" class="cart-delete-action" data-index="<%= index %>">Xóa</a>
+                            </div>     
+                        </div>
+                        <% }) %>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="back-to-prev">
+        <a class="back-to-prev-btn" href="/">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+    </div>
+    
+    <div class="scroll-to-top">
+        <a class="scroll-to-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </div>
+    <footer class="total">
+        <div style="display: flex;align-items: center;justify-content: end;">
+            <span>Thành tiền: </span>
+            <span class="total-price"><%= sum %></span>
+        </div>
+        <button class='btn btn-primary' id="payment">Thanh toán</button>
+    </footer>
+
+    <div class="modal">      
+        <div class="modal__overlay"></div>
+        <div class="modal__body">
+            <form class="auth-form payment" id="payment-form">
+                <div class="auth-form__header">
+                    <h3 class="auth-form__heading ">Thanh toán</h3>
+                </div>
+                
+                <div class="auth-form__form">
+                    <div class="auth-form__group form-group">
+                        <label for="receiver_name">Tên người nhận</label>
+                        <input rules="required" name="receiver_name" id="receiver_name" type="text" class="form-control auth-form__input" value="<%= user.name %>">
+                        <span class="form-message"></span>
+
+                    </div>
+                    <div class="auth-form__group form-group">
+                        <label for="receiver_phone">Số điện thoại người nhận</label>
+                        <input rules="required" name="receiver_phone" id="receiver_phone" type="text" class="form-control auth-form__input" value="<%= user.phone %>">
+                        <span class="form-message"></span>
+
+                    </div>
+                    <div class="auth-form__group form-group">
+                        <label for="receiver_address">Địa chỉ người nhận</label>
+                        <input rules="required" name="receiver_address" id="receiver_address" type="text" class="form-control auth-form__input" value="<%= user.address %>">
+                        <span class="form-message"></span>
+
+                    </div>
+                    <div class="auth-form__group form-group">
+                        <label for="note">Ghi chú</label>
+                        <textarea name="note" id="note" cols="20" rows="5" placeholder="Tùy chọn"></textarea>
+                        <span class="form-message"></span>
+
+                    </div>
+                    
+                    
+                </div>
+                <div class="auth-form__control">
+                    <button class="btn btn-primary btn--next">TIẾP THEO</button>
+                </div>
+            </form> 
+    
+        </div>
+    </div>
+    <div id="toast"></div>
+    
+    <script src="./javascripts/validator.js"></script>
+    <script src="./javascripts/toast.js"></script>
+    <script src="./javascripts/convertPrice.js"></script>
+    <script>
+        Validator('#payment-form')
+    </script>
+    <script src="./javascripts/cart.js"></script>
+    <%- include('../message.ejs') %>
+</body>
+</html>
