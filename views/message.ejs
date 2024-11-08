@@ -1,0 +1,10 @@
+<script>
+    <% if (session.message) { %>
+        <% if (session.message.type == "success") {%>
+            showSuccessMessage('<%= session.message.text %>');
+        <% } else {%>
+            showErrorMessage('<%= session.message.text %>');
+        <% } %>
+        <% delete session.message; %>
+    <% } %>
+</script>

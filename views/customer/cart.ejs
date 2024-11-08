@@ -1,0 +1,51 @@
+ <!-- Cart -->
+
+ <div class="header-cart">
+     <div
+        class="header-cart__list <%= session.cart ? "header-cart__list--hascart" : "header-cart__list--empty" %> "
+        style="z-index: 2">
+     <% if (!session.cart) { %>
+     <!-- Empty -->
+            <img
+                src="images/nocart.png"
+                class="header-cart__list--empty-img" />
+            <span class="header-cart__list--empty-msg">
+                Chưa có sản phẩm
+            </span>
+            <!-- Has Cart -->
+        <% } %>
+        <h3 class="header-cart__list-heading">Sản phẩm đã thêm</h3>
+        <ul class="header-cart__items">
+            <% if (session.cart) {%>
+                <% const cart = session.cart %>
+
+            <% cart.forEach(cartItem => { %>
+                <% const product = products.find(p => p.id == cartItem.productId); %>
+                <% if (product) { %>
+                    <li class="header-cart__item">
+                        <a href="product/<%= product.id %>" class="header-cart__item-link">
+                            <img src="./images/products/<%= product.image %>" alt="" class="header-cart__item-img">
+                            <span class="header-cart__item-name"><%= product.name %></span>
+                            <span class="header-cart__item-right">
+                                <span class="header-cart__item-price"><%= product.price %></span>
+                                <span class="header-cart__item-quantity">x<%= cartItem.buyQuantity %></span>
+
+                            </span>
+                        </a>
+                    </li>
+                <% } %>
+                <% }); %>
+            <% } %>
+        </ul>
+        
+        <div class="header-cart__list-view-cart">
+            <a href="./cart" class="btn btn-primary btn-view-cart">Xem giỏ hàng</a>
+        </div>
+        </div>
+    <a href="">
+        <i
+            class="header-cart__icon fas fa-cart-plus"></i>
+        <span class="header-cart__quantity"><%= session.cart ? session.cart.length : 0 %></span>
+    </a>
+        
+</div>
