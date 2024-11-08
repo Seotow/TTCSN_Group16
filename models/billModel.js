@@ -78,7 +78,8 @@ const updateBillStatus = (billId, status, callback) => {
             return callback(err);
         }
         callback(null, result);
-
+    })
+}
 const createBill = (customer_id, receiver_name, receiver_phone, receiver_address, note, total_price, callback) => {
     //Create bill, set default status to 0 (pending)
     const billQuery = `INSERT INTO bills (customer_id, receiver_name, receiver_phone, receiver_address, note, status, total_price) VALUES (?, ?, ?, ?, ?, 0, ?)`;
