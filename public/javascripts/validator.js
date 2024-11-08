@@ -127,8 +127,9 @@ function Validator(formSelector) {
             isValid = handleValidate({target: input})       
         }
 
-        // Khi không có lỗi => submit bình thừơng
-        if(isValid) {
+        // Khi không có lỗi và form có button (type=submit) => submit bình thừơng
+        // button type=submit để fetch api
+        if(isValid && formElement.querySelector('button[type="submit"]')) {
             formElement.submit()
         }
     }

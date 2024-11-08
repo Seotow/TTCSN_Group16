@@ -52,6 +52,15 @@ const getProductById = (id, callback) => {
     })
 }
 
+const getProductsByIds = (ids, callback) => {
+    const sql = `SELECT * FROM products WHERE id IN (?)`;
+    
+    db.query(sql, [ids], (err, results) => {
+        if (err) return callback(err);
+        callback(null, results);
+    });
+};
+
 const updateProduct = (id, {name, description, image, price, quantity, manufacturer_id, category_id}, callback) => {
     const sql = 
     `UPDATE products
@@ -69,5 +78,6 @@ module.exports = {
     getDetailsAllProducts,
     addProduct,
     getProductById,
+    getProductsByIds,
     updateProduct
 };

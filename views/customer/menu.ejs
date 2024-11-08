@@ -40,27 +40,7 @@
                 </button>
             </div>
 
-            <!-- Cart -->
-
-            <div class="header-cart">
-                <div
-                    class="header-cart__list header-cart__list--empty"
-                    style="z-index: 2">
-                    <!-- Empty -->
-                    <img
-                        src="images/nocart.png"
-                        class="header-cart__list--empty-img" />
-                    <span class="header-cart__list--empty-msg">
-                        Chưa có sản phẩm
-                    </span>
-                </div>
-
-                <a href="">
-                    <i
-                        class="header-cart__icon fas fa-cart-plus"></i>
-                    <span class="header-cart__quantity">1</span>
-                </a>
-            </div>
+            <%- include('cart.ejs') %>
         </div>
     </div>
 </header>
