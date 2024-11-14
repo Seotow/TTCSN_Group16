@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý đơn hàng</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/stylesheets/base.css" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+<body>
+    <%- include('../menu') %>
+
+    <div class="admin-main">
+        <%- include('../topbar') %>
+        
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Quản lý đơn hàng</h4>
+                <div class="table-responsive">
+                    <table class="table-form">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên người nhận</th>
+                                <th>SĐT</th>
+                                <th>Địa chỉ</th>
+                                <th>Ghi chú</th>
+                                <th>Ngày tạo</th>
+                                <th>Trạng thái</th>
+                                <th>Tổng tiền</th>
+                                <th>Chi tiết</th>
+                                <th>Duyệt đơn</th>
+                                <th>Hủy đơn</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (bills && bills.length) { %>
+                                <% bills.forEach(bill => { %>
+                                    <tr>
+                                        <td><%= bill.id %></td>
+                                        <td><%= bill.receiver_name %></td>
+                                        <td><%= bill.receiver_phone %></td>
+                                        <td><%= bill.receiver_address %></td>
+                                        <td><%= bill.note || "Không có" %></td>
+                                        <td><%= bill.created_at %></td>
+                                        <td>
+                                            <% if (bill.status === 0) { %>
+                                                Chờ duyệt
+                                            <% } else if (bill.status === 1) { %>
+                                                Đã duyệt
+                                            <% } else if (bill.status === -1) { %>
+                                                Đã hủy
+                                            <% } %>
+                                        </td>
+                                        <td><%= bill.total_price %> VND</td>
+                                        <td><a href="/admin/bills/details/<%= bill.id %>" class="details-link">Xem chi tiết</a></td>
+                                        <td>
+                                             <!-- Form duyệt đơn hàng -->
+                                             <form action="/admin/bills/approve/<%= bill.id %>" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn duyệt đơn này?');">
+                                                <button type="submit" class="approve-link">Duyệt đơn</button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <!-- Form hủy đơn hàng -->
+                                            <form action="/admin/bills/cancel/<%= bill.id %>" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn hủy đơn này?');">
+                                                <button type="submit" class="cancel-link">Hủy đơn</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            <% } else { %>
+                                <tr><td colspan="11">Không có đơn hàng</td></tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast"></div>
+
+    <script src="/javascripts/admin.js"></script>
+    <script src="/javascripts/toast.js"></script>
+</body>
+</html>
