@@ -526,11 +526,6 @@
   flex: 1;
   padding-left: 16px;
 }
-
-.header-search__inp:focus ~ .header-search__history {
-  display: block;
-}
-
 .header-search__btn {
   border: none;
   background-color: var(--primary-color);
@@ -561,6 +556,10 @@
   box-shadow: 0 1px 4px 0 rgba(0,0,0,.26) ;
 }
 
+.header-search__history.show {
+  display: block;
+}
+
 .header-search__history-heading {
   margin: 10px 15px 10px 10px;
   font-size: 1.4rem;
@@ -577,10 +576,11 @@
 .header-search__history-item {
   list-style: none;
   padding: 10px;
+  cursor: pointer;
 }
 
 .header-search__history-item:hover {
-  background-color: #fafafa;
+  background-color: #dfdede;
 }
 
 .header-search__history-item a {
@@ -1424,13 +1424,12 @@
   border: 2px solid var(---primary-color);
   display: flex;
   align-items: center;
-  color: var(--primary-color);
   background: rgba(255,87,34,.1);
   border: 1px solid var(--primary-color);
   border-radius: 2px;
   box-shadow: 0 1px 1px 0 rgb(0 0 0 / 3%);
   justify-content: center;
-  text-decoration: none;
+  cursor: pointer;
 }
 
 .product-details-addtocart > span {
@@ -1723,6 +1722,12 @@
   margin-bottom: 20px;
 }
 
+.card-head-infor {
+  display: block;
+  font-size: 16px;
+  padding-top: 4px;
+}
+
 .card-description {
   margin-bottom: 12px;
   font-weight: 400;
@@ -1786,23 +1791,20 @@
   position: fixed;
   top: 10vh;
   left: 5vh;
-  font-size: 20px;
-  color: var(--primary-color)
 }
 
-.back-to-prev-btn,
-.scroll-to-top-btn {
+.back-to-prev,
+.scroll-to-top {
   color: var(--primary-color);
   padding: 10px;
+  cursor: pointer;
+  font-size: 20px;
 }
 
 .scroll-to-top {
   position: fixed;
   bottom: 20vh;
   right: 5vh;
-  font-size: 20px;
-  color: var(--primary-color);
-  cursor: pointer;
 }
 
 .total {
@@ -1877,4 +1879,16 @@
   white-space: nowrap;
   font-size: 16px;
   padding: 10px 20px
+}
+
+.search-query {
+  margin-top: 20px;
+  color: rgba(0, 0, 0, .54);
+  font-size: 24px;
+  font-weight: 500;
+  font-variant-caps: all-petite-caps;
+}
+
+.search-query span{
+  color: var(--primary-color);
 }

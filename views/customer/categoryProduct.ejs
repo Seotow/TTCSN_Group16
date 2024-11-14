@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= category.name %></title>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+        integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="/stylesheets/base.css" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+<body>
+    <%- include('menu.ejs') %>
+    <%- include('modal.ejs') %>
+    <div class="grid">
+        <div class="search-query">
+            Danh mục: <span><%= category.name %></span>
+        </div>
+        <div class="grid__row app-content">
+            <div class="grid__col-12">
+                <!-- Product -->
+                <div class="grid__row">
+
+                    <% products.forEach(product => { %>
+                    <div class="grid__col-2 product">
+                        <a href="/product/<%= product.id %>" class="product-item product--favourite">
+                            <div class="product__img"
+                                style="
+                                    background-image: url('/images/products/<%= product.image%>');
+                                    background-size: contain;
+                                    background-repeat: no-repeat;
+                                    background-position: center;
+                                ">
+                                
+                            </div>
+
+                            <div class="product-body">
+                                <h3 class="product__name">
+                                    <%= product.name %>
+                                </h3>
+
+                                <div class="product__discount">
+                                    <div
+                                        class="product__discount-price">
+                                        10%
+                                    </div>
+                                </div>
+
+                                <div class="product__info product__info--quantity">
+                                    <span class="product__info-price"><%= product.price %></span>
+                                    <span class="product__info-quantity">Còn <%= product.quantity %></span>
+                                </div>
+                            </div>
+
+                            <!-- <div class="product__favourite">
+                                <span>Yêu Thích</span>
+                            </div> -->
+                            <button 
+                                class="product-hover-footer" 
+                                data-id="<%= product.id %>" 
+                                data-quantity="<%= product.quantity %>"
+                                data-image="<%= product.image %>"
+                                data-name="<%= product.name %>"
+                                data-price="<%= product.price %>"
+                                >
+                                Thêm vào giỏ hàng
+                            </button>
+                        </a>
+                    </div>
+                    
+                    <% }) %>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="toast"></div>
+    <%- include('footer') %>
+    <%- include('../message.ejs') %>
+    <script src="/javascripts/toast.js"></script>
+    <script src="/javascripts/validator.js"></script>
+    <script src="/javascripts/convertPrice.js"></script> 
+    <script src="/javascripts/index.js"></script>
+</body>
+</html>

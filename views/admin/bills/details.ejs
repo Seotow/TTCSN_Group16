@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chi tiết đơn hàng</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous" />
     <link rel="stylesheet" href="/stylesheets/base.css">
     <link rel="stylesheet" href="/stylesheets/style.css">
@@ -19,50 +22,56 @@
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">Chi tiết đơn hàng</h4>
+            <span class="card-head-infor">Mã đơn: <%= bill.id %></span>
+            <span class="card-head-infor">Tên người nhận: <%= bill.receiver_name %></span>
+            <span class="card-head-infor">Số điện thoại người nhận: <%= bill.receiver_phone %></span>
+            <span class="card-head-infor">Địa chỉ người nhận: <%= bill.receiver_address %></span>
+            <span class="card-head-infor">Thời gian tạo đơn: <span class="date"><%= bill.created_at %></span></span>
+            <span class="card-head-infor">Ghi chú: <%= bill.note || "Không có" %></span>
+            <span class="card-head-infor">Trạng thái: 
+                <% if (bill.status === 0) { %>
+                    Chờ duyệt
+                <% } else if (bill.status === 1) { %>
+                    Đã duyệt
+                <% } else if (bill.status === -1) { %>
+                    Đã hủy
+                <% } %>
+            </span>
+
             <div class="table-responsive">
                 <table class="table-form">
                     <thead>
                         <tr>
-                            <th>Ảnh</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Giá</th>
-                            <th>Số lượng</th>
-                            <th>Tổng tiền (VNĐ)</th>
+                            <th class="table-form-thead">Ảnh</th>
+                            <th class="table-form-thead">Tên sản phẩm</th>
+                            <th class="table-form-thead">Giá</th>
+                            <th class="table-form-thead">Số lượng</th>
+                            <th class="table-form-thead">Thành tiền (VNĐ)</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <% 
-                            let sum = 0;
-                            if (details && details.length) {
-                                details.forEach(detail => { 
-                                    const total = detail.price * detail.quantity;
-                                    sum += total;
-                        %>
+                        <% details.forEach(detail => { %>
+                            
                         <tr>
-                            <td><img height="100" src="/assets/images/products/<%= detail.image %>" alt="<%= detail.name %>"></td>
-                            <td><%= detail.name %></td>
-                            <td>đ<%= detail.price %></td>
-                            <td><%= detail.quantity %></td>
-                            <td><%= total %> </td>
+                            <td class="table-form-item"><img height="100" src="/images/products/<%= detail.image %>" alt="<%= detail.name %>"></td>
+                            <td class="table-form-item"><%= detail.name %></td>
+                            <td class="table-form-item">đ<%= detail.price %></td>
+                            <td class="table-form-item"><%= detail.quantity %></td>
+                            <td class="table-form-item"><%= detail.price * detail.quantity %> </td>
                         </tr>
-                        <% 
-                                });
-                            } else { 
-                        %>
-                            <tr><td colspan="5">Không có chi tiết đơn hàng</td></tr>
-                        <% } %>
+                        <%}); %>
                         <tr>
-                            <td>Tổng</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td style="font-weight: 700"><%= sum %></td>
+                            <td class="table-form-item"></td>
+                            <td class="table-form-item"></td>
+                            <td class="table-form-item"></td>
+                            <td class="table-form-item">Tổng</td>
+                            <td class="table-form-item"><b><%= bill.total_price %></b></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class="order-actions">
-                <% if (bill) { %>
+                <% if (bill.status == 0) { %>
                     <!-- Form duyệt đơn hàng -->
                     <form action="/admin/bills/approve/<%= bill.id %>" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn duyệt đơn này?');">
                         <button type="submit" class="approve-link">Duyệt đơn</button>
@@ -79,8 +88,10 @@
 
 <div id="toast"></div>
 
-<script src="../../javascripts/validator.js"></script>
-<script src="../../javascripts/toast.js"></script>
+<script src="/javascripts/toast.js"></script>
+<script src="/javascripts/admin.js"></script>
+<script src="/javascripts/convertPrice.js"></script>
+<script src="/javascripts/convertDate.js"></script>
 
 </body>
 </html>

@@ -9,7 +9,7 @@ function applyPriceFormatting() {
     priceElements.forEach(element => {
         const price = parseFloat(element.innerText.replace(/[^0-9.-]+/g, ""));
         if (!isNaN(price)) {
-            element.innerText = `đ${formatPrice(price)}`;
+            element.innerText = `${formatPrice(price)}₫`;
         }
     });
 }

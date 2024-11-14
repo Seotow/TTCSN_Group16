@@ -54,7 +54,7 @@
                      
                         <div class="empty-cart">
                             <!-- Empty -->
-                            <img src="./assets/images/nocart.png" class="empty-cart-img">
+                            <img src="/images/nocart.png" class="empty-cart-img">
                             <span class="empty-cart-msg">
                                 Chưa có sản phẩm
                             </span>
@@ -74,7 +74,7 @@
                         >
                             <div class="cart-product">
                                 <!-- <div class="cart-product-img" background="url('./assets/images/nocart.png')"></div> -->
-                                <img src="./images/products/<%= cartItem.image %>" class="cart-product-img"> 
+                                <img src="/images/products/<%= cartItem.image %>" class="cart-product-img"> 
                                 <div class="cart-poduct-name">
                                     <%= cartItem.name %>
                                 </div>
@@ -106,16 +106,12 @@
 
     </div>
 
-    <div class="back-to-prev">
-        <a class="back-to-prev-btn" href="/">
-            <i class="fas fa-arrow-left"></i>
-        </a>
+    <div class="back-to-prev" onclick="history.back()">
+        <i class="fas fa-arrow-left"></i>
     </div>
     
-    <div class="scroll-to-top">
-        <a class="scroll-to-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
-            <i class="fas fa-arrow-up"></i>
-        </a>
+    <div class="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+        <i class="fas fa-arrow-up"></i>
     </div>
     <footer class="total">
         <div style="display: flex;align-items: center;justify-content: end;">

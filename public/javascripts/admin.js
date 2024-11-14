@@ -10,6 +10,15 @@ for(const item of listItems){
 
 }
 
+document.querySelectorAll('.clickable-row').forEach(row => {
+    row.addEventListener('click', function(e) {
+        if(e.target.closest('button.approve-link') || e.target.closest('button.cancel-link') ) {
+            return false;
+        }
+        window.location.href = this.dataset.href;
+    });
+});
+
 // const toggle = $('.toggle')
 // const navigation = $('.navigation')
 // const main = $('.main')
