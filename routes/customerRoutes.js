@@ -6,6 +6,9 @@ const checkoutController = require('../controllers/checkoutController');
 
 // Xem và tìm kiếm sản phẩm
 router.get('/', productController.getProductsAndCategories);
+router.get('/search', productController.searchProducts);
+router.get('/product/:id', productController.getProductDetails);
+router.get('/category/:id', productController.getProductsByCategory);
 
 // Giỏ hàng
 router.post('/add-to-cart', cartController.addToCart);

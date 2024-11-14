@@ -7,7 +7,7 @@
      <% if (!session.cart) { %>
      <!-- Empty -->
             <img
-                src="images/nocart.png"
+                src="/images/nocart.png"
                 class="header-cart__list--empty-img" />
             <span class="header-cart__list--empty-msg">
                 Chưa có sản phẩm
@@ -23,8 +23,8 @@
                 <% const product = products.find(p => p.id == cartItem.productId); %>
                 <% if (product) { %>
                     <li class="header-cart__item">
-                        <a href="product/<%= product.id %>" class="header-cart__item-link">
-                            <img src="./images/products/<%= product.image %>" alt="" class="header-cart__item-img">
+                        <a href="/product/<%= product.id %>" class="header-cart__item-link">
+                            <img src="/images/products/<%= product.image %>" alt="" class="header-cart__item-img">
                             <span class="header-cart__item-name"><%= product.name %></span>
                             <span class="header-cart__item-right">
                                 <span class="header-cart__item-price"><%= product.price %></span>
@@ -39,7 +39,7 @@
         </ul>
         
         <div class="header-cart__list-view-cart">
-            <a href="./cart" class="btn btn-primary btn-view-cart">Xem giỏ hàng</a>
+            <a href="/cart" class="btn btn-primary btn-view-cart">Xem giỏ hàng</a>
         </div>
         </div>
     <a href="">

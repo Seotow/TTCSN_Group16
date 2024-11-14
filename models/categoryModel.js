@@ -11,6 +11,17 @@ const getAllCategories = (callback) => {
     });
 };
 
+const getCategoryById = (categoryId, callback) => {
+    const query = 'SELECT * FROM categories WHERE id = ?';
+    db.query(query, [categoryId], (err, results) => { 
+        if (err) { 
+            return callback(err, null);
+        }
+        callback(null, results[0]);
+    })
+}
+
 module.exports = {
-    getAllCategories
+    getAllCategories,
+    getCategoryById
 };

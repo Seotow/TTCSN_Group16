@@ -61,6 +61,14 @@ const getProductsByIds = (ids, callback) => {
     });
 };
 
+const getProductsByCategory = (categoryId, callback) => {
+    const sql = `SELECT * FROM products WHERE category_id = ?`;
+    db.query(sql, [categoryId], (err, results) => {
+        if (err) return callback(err);
+        callback(null, results);
+    });
+};
+
 const updateProduct = (id, {name, description, image, price, quantity, manufacturer_id, category_id}, callback) => {
     const sql = 
     `UPDATE products
@@ -73,11 +81,26 @@ const updateProduct = (id, {name, description, image, price, quantity, manufactu
     })
 }
 
+const searchProducts = (query, callback) => {
+    const sql = `SELECT * FROM products WHERE name LIKE ?`;
+    const searchQuery = `%${query}%`;
+
+    db.query(sql, [searchQuery], (err, results) => {
+        if (err) {
+            return callback(err);
+        }
+        callback(null, results);
+    });
+};
+
+
 module.exports = {
     getAllProducts,
     getDetailsAllProducts,
     addProduct,
     getProductById,
     getProductsByIds,
-    updateProduct
+    getProductsByCategory,
+    updateProduct,
+    searchProducts,
 };

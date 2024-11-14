@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if(data.success) {
-                window.location.href = '/';
+                window.location.href = window.location.href;
             } else {
                 showErrorMessage(data.message)
             }
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                window.location.href = '/';
+                window.location.href = window.location.href;
             } else {
                 showErrorMessage(data.message);
             }
@@ -174,4 +174,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
         cartQuantitySpan.innerText = cart.length;
     }
+
+    // Search
+    const searchBtn = $("#header-search__btn")
+    const searchInput = $("#header-search__input")
+
+    const handleSearch = (query) => {
+        window.location.href = `/search?query=${encodeURIComponent(query)}`;
+    };
+
+    searchBtn.onclick = () => handleSearch(searchInput.value);
+
+    searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleSearch(searchInput.value);
+        }
+    });
+
+    const historyList = $(".header-search__history")
+    
+    searchInput.onfocus = (e) => {
+        historyList.classList.add('show')
+    }
+    const searchHistoryItems = $$('.header-search__history-item');
+    searchHistoryItems.forEach(item => {
+        item.onclick = function(e) {
+            console.log(e)
+            const query = this.dataset.query;
+            handleSearch(query);
+        }
+    });
 })
