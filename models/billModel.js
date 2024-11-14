@@ -4,14 +4,14 @@ const db = require('../config/db');
 const getBillDetailsById = (billId, callback) => {
     const sql = `
         SELECT 
+            product_id,
             PRODUCTS.image,
             PRODUCTS.name,
             PRODUCTS.price,
-            DETAILS_BILLS.quantity,
-            (PRODUCTS.price * DETAILS_BILLS.quantity) AS total_price
+            DETAILS_BILLS.quantity
         FROM DETAILS_BILLS
         JOIN PRODUCTS ON DETAILS_BILLS.product_id = PRODUCTS.id
-        WHERE DETAILS_BILLS.bill_id = ?
+        WHERE bill_id = ?
     `;
     db.query(sql, [billId], (err, results) => {
         if (err) {
@@ -44,6 +44,23 @@ const getBillById = (billId, callback) => {
     });
 };
 
+const getBillsByUserId = (userId, statusFilter, callback) => {
+    let sql = `SELECT * FROM bills WHERE customer_id = ?`;
+    const params = [userId];
+
+    if (statusFilter) {
+        sql += ` AND status = ?`;
+        params.push(statusFilter);
+    }
+
+    sql += ` ORDER BY created_at DESC`;
+
+    db.query(sql, params, (err, results) => {
+        if (err) return callback(err);
+        callback(null, results);
+    });
+};
+
 // Hàm lấy tất cả hóa đơn từ bảng BILLS
 const getAllBills = (callback) => {
     const sql = `
@@ -57,6 +74,7 @@ const getAllBills = (callback) => {
             status,
             total_price
         FROM BILLS
+        ORDER BY FIELD(status, 0, 1, -1), created_at DESC
     `;
     db.query(sql, (err, results) => {
         if (err) {
@@ -104,12 +122,22 @@ const createBillDetails = (bill_id, cartItems, callback) => {
     });
 };
 
+const getBillDetails = (billId, callback) => {
+    const sql = `SELECT * FROM details_bills WHERE bill_id = ?`;
+    db.query(sql, [billId], (err, results) => {
+        if (err) return callback(err);
+        callback(null, results);
+    });
+};
+
 module.exports = {
     getAllBills,
     getBillDetailsById,
     getBillById,
+    getBillsByUserId,
     updateBillStatus,
     createBill,
-    createBillDetails
+    createBillDetails,
+    getBillDetails
 };
    

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin người dùng</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./stylesheets/base.css">
+    <link rel="stylesheet" href="./stylesheets/style.css">
+</head>
+<body>
+    <%- include('navbar.ejs') %>
+
+    <div class="user-info">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Thông tin cá nhân</h4>
+                <div class="table-responsive">
+                    <form id="form_update-user-infor" class="table-form">
+                        <div class="form-group table-form-group">
+                            <label for="name">Họ tên</label>
+                            <input rules="required" class="form-control" type="text" name="name" id="name" value="<%= user.name %>">
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group table-form-group">
+                            <label for="gender">Giới tính</label>
+                            <select name="gender" id="gender" class="form-control">
+                                <option value="1" <% if (user.gender === 1) { %> selected <% } %> >Nam</option>
+                                <option value="0" <% if (user.gender === 0) { %> selected <% } %> >Nữ </option>
+                            </select>
+                        </div>
+                        <div class="form-group table-form-group">
+                            <label for="birthdate">Ngày sinh</label>
+                            <input class="form-control" type="date" name="birthdate" id="birthdate" value="<%= user.birthdate %>">
+                        </div>
+                        <div class="form-group table-form-group">
+                            <label for="phone">Số điện thoại</label>
+                            <input rules="required" class="form-control" type="text" name="phone" id="phone" value="<%= user.phone %>">
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group table-form-group">
+                            <label for="address">Địa chỉ</label>
+                            <input class="form-control" type="text" name="address" id="address" value="<%= user.address %>">
+                        </div>
+                        <button class="btn btn-primary">Sửa</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h4 class="card-title">Thông tin đăng nhập</h4>
+                <div class="table-responsive">
+                    <form id="form_update-user-password" class="table-form">
+                        <div class="form-group table-form-group">
+                            <label for="email">Email</label>
+                            <input class="form-control" type="email" name="email" id="email" value="<%= user.email %>">
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group table-form-group">
+                            <label for="new-password">Mật khẩu mới</label>
+                            <input rules="required|min:6|max:18" class="form-control" type="password" name="password" id="new-password">
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group table-form-group">
+                            <label for="confirm-password">Xác nhận mật khẩu mới</label>
+                            <input rules="required|min:6|max:18" class="form-control" type="password" name="password_confirmation" id="new-confirm-password">
+                            <span class="form-message"></span>
+                        </div>
+                        <button class="btn btn-primary">Đổi mật khẩu</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="toast"></div>
+
+    <script src="/javascripts/toast.js"></script>
+    <script src="/javascripts/validator.js"></script>
+    <script src="/javascripts/convertDate.js"></script>
+    <script src="/javascripts/convertPrice.js"></script>
+    <script src="/javascripts/userInfor.js"></script>
+
+    <script>
+        Validator("form_update-user-infor")
+        Validator("form_update-user-password")
+    </script>
+</body>
+</html>

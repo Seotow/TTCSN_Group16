@@ -35,6 +35,7 @@ const getCartProducts = (req, res) => {
 }
 
 const addToCart = (req, res) => {
+    console.log(req.body)
     const { productId, name, image, price, quantity } = req.body
     const buyQuantity = parseInt(req.body.buyQuantity) || 1;
     if (!req.session.cart) {
@@ -46,8 +47,10 @@ const addToCart = (req, res) => {
 
     if (cartItem) {
         cartItem.buyQuantity += buyQuantity;
+        console.log(1)
     } else {
         req.session.cart.push({ productId, name, image, price, quantity, buyQuantity });
+        console.log(3)
     }
 
     return res.json({ success: true, cart: req.session.cart });

@@ -1376,7 +1376,7 @@
   word-break: break-word;
 }
 
-.product-details-quantily-input {
+.product-details-quantity-input {
   display: flex;
 }
 
@@ -1764,6 +1764,15 @@
   line-height: 24px;
 }
 
+.table-form-thead:nth-last-child(1), .table-form-item:nth-last-child(1) {
+  text-align: right;
+}
+
+.clickable-row:hover {
+  background-color: #e7e7e7;
+  cursor: pointer;
+}
+
 .table-form-group {
   margin-bottom: 24px;
 }
@@ -1871,6 +1880,8 @@
 }
 
 .purchase-header {
+  display: flex;
+  justify-content: space-between;
   margin-top: 16px;
   line-height: 24px;
   color: var(--primary-color);
@@ -1891,4 +1902,9 @@
 
 .search-query span{
   color: var(--primary-color);
+}
+
+.user-info {
+  max-width: 1200px;
+  margin: 0 auto;
 }

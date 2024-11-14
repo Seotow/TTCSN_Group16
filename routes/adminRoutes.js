@@ -8,17 +8,19 @@ const billController = require('../controllers/billController');
 
 //Middleware
 function checkSession(req, res, next) {
-    // if (!req.session.admin) {
-    //     return res.redirect('/admin'); // Redirect to home page if no session
-    // }
+    if (!req.session.admin) {
+        return res.redirect('/admin'); // Redirect to home page if no session
+    }
     next();
 }
 
+
 //Admin auth
 router.get('/', adminAuthController.showAdminLoginForm);
-router.get('/dashboard', adminDashboardController.showDashboard)
 router.post('/login', adminAuthController.login);
 router.get('/logout', adminAuthController.logout);
+router.use(checkSession);
+router.get('/dashboard', adminDashboardController.showDashboard)
 
 //Admin product management
 router.get('/products', adminDashboardController.showProducts);

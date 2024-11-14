@@ -76,10 +76,44 @@ const cancelBill = (req, res) => {
     });
 };
 
-// Export các hàm
+const viewAllBills = async (req, res) => {
+    const userId = req.session.user.id;
+    const statusFilter = req.query.status;
+    
+    try {
+        const bills = await new Promise((resolve, reject) => {
+            billModel.getBillsByUserId(userId, statusFilter, (err, bills) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve(bills);
+            });
+        });
+
+        const billDetailsPromises = bills.map(bill => {
+            return new Promise((resolve, reject) => {
+                billModel.getBillDetailsById(bill.id, (err, details) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    resolve({ bill, details });
+                });
+            });
+        });
+
+        const billsWithDetails = await Promise.all(billDetailsPromises);
+
+        res.render('customer/bills', { billsWithDetails });
+    } catch (err) {
+        console.error('Lỗi khi lấy dữ liệu hóa đơn:', err);
+        res.status(500).send('Lỗi khi lấy dữ liệu hóa đơn');
+    }
+};
+
 module.exports = {
     showBills,
     showBillDetails,
     approveBill,
-    cancelBill
+    cancelBill,
+    viewAllBills,
 };
