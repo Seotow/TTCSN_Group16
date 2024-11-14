@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đơn hàng của tôi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/base.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <%- include('navbar.ejs') %>
+
+    <div class="cart-main">
+        <div class="content-section">
+            <div class="grid content">
+                <div class="grid__row">
+                    <header class="cart-content cart-header">
+                        <a href="/bills" class="purchase-col">
+                            Tất cả
+                        </a>
+                        <a href="/bills?status=0" class="purchase-col">
+                            Chờ xác nhận
+                        </a>                
+                        <a href="/bills?status=1" class="purchase-col">
+                            Đã duyệt
+                        </a>                
+                        <a href="/bills?status=-1" class="purchase-col">
+                            Đã hủy
+                        </a>                
+                    </header>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div class="grid content purchase">
+                <% if (billsWithDetails.length > 0) { %>
+                <% billsWithDetails.forEach(billWithDetails => { %>
+                    <div class="grid__row">
+                        <div class="purchase-bill">
+                            <div class="purchase-header">
+                                <span class="date">
+                                    <%= billWithDetails.bill.created_at %>
+                                </span>
+                                <span>
+                                    <% if (billWithDetails.bill.status === 0) { %>
+                                        Chờ duyệt
+                                    <% } else if (billWithDetails.bill.status === 1) { %>
+                                        Đã duyệt
+                                    <% } else if (billWithDetails.bill.status === -1) { %>
+                                        Đã hủy
+                                    <% } %>
+                                </span>
+                            </div>
+                            <table class="table-form">
+                                <thead>
+                                    <tr>
+                                        <th class="table-form-thead">STT</th>
+                                        <th class="table-form-thead">Ảnh</th>
+                                        <th class="table-form-thead">Tên sản phẩm</th>
+                                        <th class="table-form-thead">Giá</th>
+                                        <th class="table-form-thead">Số lượng</th>
+                                        <th class="table-form-thead">Thành tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% billWithDetails.details.forEach((detail, index) => { %>
+                                        <tr>
+                                            <td class="table-form-item"><%= index + 1 %></td>
+                                            <td class="table-form-item"><img src="/images/products/<%= detail.image %>" alt="<%= detail.name %>" height="50"></td>
+                                            <td class="table-form-item"><%= detail.name %></td>
+                                            <td class="table-form-item price"><%= detail.price %></td>
+                                            <td class="table-form-item"><%= detail.quantity %></td>
+                                            <td class="table-form-item price"><%= billWithDetails.bill.total_price %></td>
+                                        </tr>
+                                    <% }); %>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <p>Không có hóa đơn nào</p>
+            <% } %>
+            </div>
+        </div>
+    </div>
+    <div class="back-to-prev" onclick="history.back()">
+        <i class="fas fa-arrow-left"></i>
+    </div>
+    
+    <div class="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script src="/javascripts/toast.js"></script>
+    <script src="/javascripts/convertDate.js"></script>
+    <script src="/javascripts/convertPrice.js"></script>
+</body>
+</html>

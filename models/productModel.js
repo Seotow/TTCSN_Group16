@@ -81,6 +81,14 @@ const updateProduct = (id, {name, description, image, price, quantity, manufactu
     })
 }
 
+const updateProductQuantity = (productId, quantity, callback) => {
+    const sql = `UPDATE products SET quantity = ? WHERE id = ?`;
+    db.query(sql, [quantity, productId], (err) => {
+        if (err) return callback(err);
+        callback(null);
+    });
+};
+
 const searchProducts = (query, callback) => {
     const sql = `SELECT * FROM products WHERE name LIKE ?`;
     const searchQuery = `%${query}%`;
@@ -102,5 +110,6 @@ module.exports = {
     getProductsByIds,
     getProductsByCategory,
     updateProduct,
+    updateProductQuantity,
     searchProducts,
 };

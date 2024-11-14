@@ -20,21 +20,18 @@
                 <% const cart = session.cart %>
 
             <% cart.forEach(cartItem => { %>
-                <% const product = products.find(p => p.id == cartItem.productId); %>
-                <% if (product) { %>
-                    <li class="header-cart__item">
-                        <a href="/product/<%= product.id %>" class="header-cart__item-link">
-                            <img src="/images/products/<%= product.image %>" alt="" class="header-cart__item-img">
-                            <span class="header-cart__item-name"><%= product.name %></span>
-                            <span class="header-cart__item-right">
-                                <span class="header-cart__item-price"><%= product.price %></span>
-                                <span class="header-cart__item-quantity">x<%= cartItem.buyQuantity %></span>
+                <li class="header-cart__item">
+                    <a href="/product/<%= cartItem.productId %>" class="header-cart__item-link">
+                        <img src="/images/products/<%= cartItem.image %>" alt="" class="header-cart__item-img">
+                        <span class="header-cart__item-name"><%= cartItem.name %></span>
+                        <span class="header-cart__item-right">
+                            <span class="header-cart__item-price"><%= cartItem.price %></span>
+                            <span class="header-cart__item-quantity">x<%= cartItem.buyQuantity %></span>
 
-                            </span>
-                        </a>
-                    </li>
-                <% } %>
-                <% }); %>
+                        </span>
+                    </a>
+                </li>
+            <% }) %>
             <% } %>
         </ul>
         

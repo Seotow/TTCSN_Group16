@@ -42,6 +42,7 @@
                 <table class="table-form">
                     <thead>
                         <tr>
+                            <th class="table-form-thead">Mã</th>
                             <th class="table-form-thead">Ảnh</th>
                             <th class="table-form-thead">Tên sản phẩm</th>
                             <th class="table-form-thead">Giá</th>
@@ -53,6 +54,7 @@
                         <% details.forEach(detail => { %>
                             
                         <tr>
+                            <td class="table-form-item"><%= detail.product_id %></td>
                             <td class="table-form-item"><img height="100" src="/images/products/<%= detail.image %>" alt="<%= detail.name %>"></td>
                             <td class="table-form-item"><%= detail.name %></td>
                             <td class="table-form-item">đ<%= detail.price %></td>

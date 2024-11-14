@@ -278,7 +278,7 @@ const showBillDetails = (req, res) => {
                 return res.status(500).send('Đã xảy ra lỗi khi lấy chi tiết hóa đơn');
             }
 
-            res.render('admin/billDetails', {
+            res.render('admin/bills/details', {
                 bill,
                 details
             });
@@ -290,13 +290,63 @@ const showBillDetails = (req, res) => {
 const approveBill = (req, res) => {
     const billId = req.params.id;
 
-    billModel.updateBillStatus(billId, 'Đã duyệt', (err) => {
+    billModel.getBillDetails(billId, (err, details) => {
         if (err) {
-            console.error('Lỗi khi duyệt đơn:', err);
-            return res.status(500).send('Đã xảy ra lỗi khi duyệt đơn');
+            console.error('Lỗi khi lấy chi tiết đơn:', err);
+            return res.status(500).send('Đã xảy ra lỗi khi lấy chi tiết đơn');
         }
-        req.flash('success', 'Duyệt đơn thành công');
-        res.redirect('/admin/bills');
+
+        // Kiểm tra số lượng sp
+        const productIds = details.map(detail => detail.product_id);
+        productModel.getProductsByIds(productIds, (err, products) => {
+            if (err) {
+                console.error('Lỗi khi lấy dữ liệu sản phẩm:', err);
+                return res.status(500).send('Đã xảy ra lỗi khi lấy dữ liệu sản phẩm');
+            }
+
+            const productMap = {};
+            products.forEach(product => {
+                productMap[product.id] = product;
+                console.log(product)
+            });
+
+            for (const detail of details) {
+                if (detail.quantity > productMap[detail.product_id].quantity) {
+                    req.flash('error', `Số lượng sản phẩm ${productMap[detail.product_id].name} không đủ`);
+                    return res.redirect('/admin/bills');
+                }
+            }
+
+            // Cập nhật nếu đủ
+            const updatePromises = details.map(detail => {
+                const newQuantity = productMap[detail.product_id].quantity - detail.quantity;
+                return new Promise((resolve, reject) => {
+                    productModel.updateProductQuantity(detail.product_id, newQuantity, (err) => {
+                        if (err) {
+                            return reject(err);
+                        }
+                        resolve();
+                    });
+                });
+            });
+
+            Promise.all(updatePromises)
+                .then(() => {
+                    // Update bill status
+                    billModel.updateBillStatus(billId, 1, (err) => {
+                        if (err) {
+                            console.error('Lỗi khi duyệt đơn:', err);
+                            return res.status(500).send('Đã xảy ra lỗi khi duyệt đơn');
+                        }
+                        req.session.message = { type: "success", text: "Duyệt đơn thành công"};
+                        res.redirect('/admin/bills');
+                    });
+                })
+                .catch(err => {
+                    console.error('Lỗi khi cập nhật số lượng sản phẩm:', err);
+                    res.status(500).send('Đã xảy ra lỗi khi cập nhật số lượng sản phẩm');
+                });
+        });
     });
 };
 
@@ -304,12 +354,12 @@ const approveBill = (req, res) => {
 const cancelBill = (req, res) => {
     const billId = req.params.id;
 
-    billModel.updateBillStatus(billId, 'Đã hủy', (err) => {
+    billModel.updateBillStatus(billId, -1, (err) => {
         if (err) {
             console.error('Lỗi khi hủy đơn:', err);
             return res.status(500).send('Đã xảy ra lỗi khi hủy đơn');
         }
-        req.flash('success', 'Hủy đơn thành công');
+        req.session.message = { type: "success", text: "Hủy đơn thành công"};
         res.redirect('/admin/bills');
     });
 };

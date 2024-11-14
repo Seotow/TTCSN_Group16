@@ -1,5 +1,14 @@
 const db = require('../config/db');
 
+// format date to yyyy-mm-dd
+const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+};
+
 // Tìm người dùng dựa vào email và mật khẩu
 const getUserByEmailAndPassword = (email, password, callback) => {
 
@@ -38,6 +47,9 @@ const getUserById = (userId, callback) => {
             return callback(err, null);
         }
         if (results.length > 0) {
+            results.forEach(user => {
+                user.birthdate = formatDate(user.birthdate);
+            });
             callback(null, results[0]);
         } else {
             callback(null, null);
@@ -45,9 +57,30 @@ const getUserById = (userId, callback) => {
     })
 }
 
+const updateUserInforById = (userId, userData, callback) => {
+    const { name, gender, birthdate, phone, address } = userData;
+    const sql = `UPDATE customers SET name = ?, gender = ?, birthdate = ?, phone = ?, address = ? WHERE id = ?`;
+    db.query(sql, [name, gender, birthdate, phone, address, userId], (err) => {
+        console.log(err);
+        if (err) return callback(err);
+        callback(null);
+    });
+};
+
+const updateUserPasswordById = (userId, newPassword, callback) => {
+    const sql = `UPDATE customers SET password = ? WHERE id = ?`
+    db.query(sql, [newPassword, userId], (err) => {
+        console.log(err)
+        if (err) return callback(err);
+        callback(null);
+    })
+}
+
 module.exports = { 
     getUserByEmailOrPhone, 
     createUser, 
     getUserByEmailAndPassword, 
-    getUserById 
+    getUserById,
+    updateUserInforById,
+    updateUserPasswordById
 };

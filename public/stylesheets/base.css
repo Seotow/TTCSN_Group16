@@ -224,3 +224,7 @@ textarea {
     font-size: 16px;
     padding: 8px;
 }
+
+table {
+    border-collapse: collapse;
+}
