@@ -59,12 +59,12 @@
                                         <a href="staffs/edit/<%= staff.id %>" class="edit-link"><i class="fas fa-edit"></i> Sửa</a>
                                     </td>
                                     <td class="table-form-item">
-    <form action="/admin/staffs/delete/<%= staff.id %>" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa tài khoản này không?');">
-        <button type="submit" class="delete-link" style="background: none; border: none; color: inherit; cursor: pointer;">
-            <i class="fas fa-trash"></i> Xóa
-        </button>
-    </form>
-</td>
+                                        <form action="/admin/staffs/delete/<%= staff.id %>" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa tài khoản này không?');">
+                                            <button type="submit" class="delete-link" style="background: none; border: none; color: inherit; cursor: pointer;">
+                                                <i class="fas fa-trash"></i> Xóa
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                             <% }) %>
                         </tbody>

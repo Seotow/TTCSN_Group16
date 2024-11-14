@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý thể loại</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../stylesheets/base.css" />
+    <link rel="stylesheet" href="../../stylesheets/style.css" />
+</head>
+<body>
+    <%- include('../menu') %>
+
+    <div class="admin-main">
+        <%- include('../topbar') %>
+        
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Quản lý thể loại</h4>
+                <p class="card-description">
+                    <a class="card-add" href="categories/add">
+                        Thêm thể loại
+                    </a>
+                </p>
+                <div class="table-responsive">
+                    <table class="table-form">
+                        <thead>
+                            <tr>
+                                <th class="table-form-thead">ID</th>
+                                <th class="table-form-thead">Tên thể loại</th>
+                                <th class="table-form-thead">Ảnh</th>
+                                <th class="table-form-thead">Sửa</th>
+                                <th class="table-form-thead">Xóa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% categories.forEach(category => { %>
+                                <tr>
+                                    <td class="table-form-item"><%= category.id %></td>
+                                    <td class="table-form-item"><%= category.name %></td>
+                                    <td class="table-form-item">
+                                        <img src="../../images/categories/<%= category.image %>" height="50px" alt="<%= category.name %>">
+                                    </td>
+                                    <td class="table-form-item">
+                                        <a href="categories/edit/<%= category.id %>" class="edit-link"><i class="fas fa-edit"></i> Sửa</a>
+                                    </td>
+                                    <td class="table-form-item">
+                                        <form action="/admin/categories/delete/<%= category.id %>" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa thể loại này không?');">
+                                            <button type="submit" class="delete-link" style="background: none; border: none; color: inherit; cursor: pointer;">
+                                                <i class="fas fa-trash"></i> Xóa
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast"></div>
+
+    <script src="../../javascripts/admin.js"></script>
+    <script src="../../javascripts/toast.js"></script>
+</body>
+</html>
