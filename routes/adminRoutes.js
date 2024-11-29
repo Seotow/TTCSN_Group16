@@ -7,7 +7,7 @@ const staffController = require('../controllers/staffController');
 const billController = require('../controllers/billController'); 
 
 //Middleware
-function checkSession(req, res, next) {
+function checkAdminSession(req, res, next) {
     if (!req.session.admin) {
         return res.redirect('/admin'); // Redirect to home page if no session
     }
@@ -19,7 +19,7 @@ function checkSession(req, res, next) {
 router.get('/', adminAuthController.showAdminLoginForm);
 router.post('/login', adminAuthController.login);
 router.get('/logout', adminAuthController.logout);
-router.use(checkSession);
+router.use(checkAdminSession);
 router.get('/dashboard', adminDashboardController.showDashboard)
 
 //Admin product management

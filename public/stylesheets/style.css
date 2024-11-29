@@ -1876,7 +1876,7 @@
 .purchase-bill {
   width: 100%;
   background-color: #fff;
-
+  border-top: 1px solid var(--primary-color);
 }
 
 .purchase-header {

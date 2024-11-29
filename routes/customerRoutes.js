@@ -6,7 +6,7 @@ const checkoutController = require('../controllers/checkoutController');
 const billController = require('../controllers/billController')
 const userController = require('../controllers/userController')
 
-function checkSession(req, res, next) {
+function checkUserSession(req, res, next) {
     if (!req.session.user) {
         req.session.message = { type: 'error', text: "Vui lòng đăng nhập trước khi thực hiện chức năng"}
         return res.redirect('/'); // Redirect to home page if no session
@@ -22,7 +22,7 @@ router.get('/category/:id', productController.getProductsByCategory);
 
 // Giỏ hàng
 router.post('/add-to-cart', cartController.addToCart);
-router.use(checkSession);
+// router.use(checkUserSession); // check user session
 router.get('/cart', cartController.getCartProducts);
 router.post('/update-cart-quantity', cartController.updateCartQuantity);
 router.post('/delete-cart-item', cartController.deleteCart);
@@ -32,6 +32,7 @@ router.post('/checkout', checkoutController.processCheckout);
 
 // Hóa đơn
 router.get('/bills', billController.viewAllBills)
+router.post('/bills/cancel/:id', billController.cancelBill);
 
 // Thông tin user
 router.get('/user', userController.viewUserInfo); 

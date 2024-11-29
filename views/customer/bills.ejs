@@ -47,6 +47,9 @@
                                 <span class="date">
                                     <%= billWithDetails.bill.created_at %>
                                 </span>
+                                <% if (billWithDetails.bill.status === 0) { %>
+                                    <button class="cancel-bill-btn btn btn-primary" data-id="<%= billWithDetails.bill.id %>">Hủy đơn</button>
+                                <% } %>
                                 <span>
                                     <% if (billWithDetails.bill.status === 0) { %>
                                         Chờ duyệt
@@ -99,8 +102,44 @@
         <i class="fas fa-arrow-up"></i>
     </div>
 
+    <div id="toast"></div>
+
     <script src="/javascripts/toast.js"></script>
     <script src="/javascripts/convertDate.js"></script>
     <script src="/javascripts/convertPrice.js"></script>
+
+    <script>
+        const cancelBillButtons = document.querySelectorAll('.cancel-bill-btn');
+
+        cancelBillButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const billId = this.dataset.id;
+                if (confirm('Bạn có chắc chắn muốn hủy đơn này?')) {
+                    fetch(`/bills/cancel/${billId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                        if (data.success) {
+                            showSuccessMessage(data.message);
+                            // window.location.href = window.location.href
+                        } else {
+                            showErrorMessage(data.message);
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        showErrorMessage(data.message);
+                    });
+                }
+            });
+        });
+    </script>
+    <%- include('../message.ejs') %>
+
 </body>
 </html>

@@ -54,20 +54,22 @@
                                             <% } %>
                                         </td>
                                         <td class="table-form-item price"><%= bill.total_price %></td>
-                                        <% if (bill.status === 0) { %>
                                         <td class="table-form-item">
-                                             <!-- Form duyệt đơn hàng -->
+                                            <% if (bill.status === 0) { %>
+                                            <!-- Form duyệt đơn hàng -->
                                              <form action="/admin/bills/approve/<%= bill.id %>" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn duyệt đơn này?');">
                                                 <button type="submit" class="approve-link">Duyệt đơn</button>
                                             </form>
+                                            <% } %>
                                         </td>
                                         <td class="table-form-item">
-                                            <!-- Form hủy đơn hàng -->
+                                            <% if (bill.status === 0) { %>
+                                                <!-- Form hủy đơn hàng -->
                                             <form action="/admin/bills/cancel/<%= bill.id %>" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn hủy đơn này?');">
                                                 <button type="submit" class="cancel-link">Hủy đơn</button>
                                             </form>
+                                            <% } %>
                                         </td>
-                                        <% } %>
                                     </tr>
                                 <% }) %>
                             <% } else { %>

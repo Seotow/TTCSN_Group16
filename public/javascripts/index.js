@@ -113,38 +113,64 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const addToCartBtns = $$('.product-hover-footer')
 
-    addToCartBtns.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault()
-            const productId = this.dataset.id;
-            const name = this.dataset.name;
-            const image = this.dataset.image
-            const price = this.dataset.price
-            const quantity = this.dataset.quantity;
-
-            fetch('/add-to-cart', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ productId, name, image, price, quantity, buyQuantity: 1 }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log(data)
-                    updateCartView(data.cart);
-                    showSuccessMessage("Thêm thành công")
-                } else {
-                    showErrorMessage("Có lỗi xảy ra, vui lòng thử lại sau!")
-                }
-            })
-            .catch(err => {
-                console.error(err);
-                showErrorMessage("Có lỗi xảy ra, vui lòng thử lại sau!")
-            });
+    if (addToCartBtns) {
+        addToCartBtns.forEach(button => {
+            button.onclick =  addToCart
         });
-    });
+    }
+
+    const addToCartBtn = $('#add-to-cart')
+    if (addToCartBtn) {
+        const increaseBtn = $('.product-details-btn.increase')
+        const decreaseBtn = $('.product-details-btn.decrease')
+        const quantityValue = $('.product-details-input')
+        increaseBtn.onclick = () => {
+            if(+quantityValue.value < +quantityValue.getAttribute('maxValue')) {
+                quantityValue.value = +quantityValue.value + 1
+                addToCartBtn.dataset.buyquantity = quantityValue.value
+            }
+        }
+
+        decreaseBtn.onclick = () => {
+            if(+quantityValue.value > 1) {
+                quantityValue.value = +quantityValue.value - 1
+                addToCartBtn.dataset.buyquantity = quantityValue.value
+            }
+        }
+        addToCartBtn.onclick = addToCart
+    }
+
+    function addToCart(e) {
+        e.preventDefault()
+        const productId = this.dataset.id;
+        const name = this.dataset.name;
+        const image = this.dataset.image
+        const price = this.dataset.price
+        const quantity = this.dataset.quantity;
+        const buyQuantity = this.dataset.buyquantity
+
+        fetch('/add-to-cart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ productId, name, image, price, quantity, buyQuantity }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log(data)
+                updateCartView(data.cart);
+                showSuccessMessage("Thêm thành công")
+            } else {
+                showErrorMessage("Có lỗi xảy ra, vui lòng thử lại sau!")
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            showErrorMessage("Có lỗi xảy ra, vui lòng thử lại sau!")
+        });
+    }
 
     function updateCartView(cart) {
         const cartListHeader = $(".header-cart__list")
@@ -161,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
             cartItemElement.setAttribute('data-index', index);
             cartItemElement.innerHTML = `
                 <a href="product/${cartItem.productId}" class="header-cart__item-link">
-                    <img src="./images/products/${cartItem.image}" alt="" class="header-cart__item-img">
+                    <img src="/images/products/${cartItem.image}" alt="" class="header-cart__item-img">
                     <span class="header-cart__item-name">${cartItem.name}</span>
                     <span class="header-cart__item-right">
                         <span class="header-cart__item-price">₫${formatPrice(cartItem.price)}</span>
