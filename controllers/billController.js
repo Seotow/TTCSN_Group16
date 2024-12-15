@@ -67,12 +67,11 @@ const cancelBill = (req, res) => {
 
     billModel.updateBillStatus(billId, -1, (err) => {
         if (err) {
-            console.error('Lỗi khi hủy đơn:', err);
-            return res.status(500).send('Đã xảy ra lỗi khi hủy đơn');
+            return res.json({ success: false, message: 'Lỗi khi hủy đơn' });
         }
+        req.session.message = { type: 'success', text: 'Hủy đơn thành công'};
 
-        // Truyền thông báo thành công qua query params
-        res.redirect('/admin/bills?message=huy-don-thanh-cong');
+        res.json({ success: true, message: 'Hủy đơn thành công' });
     });
 };
 

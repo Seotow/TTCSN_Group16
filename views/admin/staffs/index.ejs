@@ -54,17 +54,27 @@
                                     <td class="table-form-item"><%= staff.phone %></td>
                                     <td class="table-form-item"><%= staff.address %></td>
                                     <td class="table-form-item"><%= staff.email %></td>
-                                    <td class="table-form-item"><%= staff.level %></td>
                                     <td class="table-form-item">
-                                        <a href="staffs/edit/<%= staff.id %>" class="edit-link"><i class="fas fa-edit"></i> Sửa</a>
+                                        <% if (staff.level === 0) { %>
+                                            Nhân viên
+                                        <% } else if (staff.level === 1) { %>
+                                            Quản lý
+                                        <% } %>
                                     </td>
                                     <td class="table-form-item">
+                                    <% if (staff.level == 0) { %>
+                                        <a href="staffs/edit/<%= staff.id %>" class="edit-link"><i class="fas fa-edit"></i> Sửa</a>
+                                    <% } %>
+                                     </td>
+                                    <td class="table-form-item">
+                                    <% if (staff.level == 0) { %>
                                         <form action="/admin/staffs/delete/<%= staff.id %>" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa tài khoản này không?');">
                                             <button type="submit" class="delete-link" style="background: none; border: none; color: inherit; cursor: pointer;">
                                                 <i class="fas fa-trash"></i> Xóa
                                             </button>
                                         </form>
-                                    </td>
+                                    <% } %>
+                                </td>
                                 </tr>
                             <% }) %>
                         </tbody>

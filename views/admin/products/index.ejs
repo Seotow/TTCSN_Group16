@@ -47,7 +47,7 @@
                                 <td class="table-form-item">
                                     <img height="100" src="/images/products/<%= product.image %>">
                                 </td>
-                                <td class="table-form-item"><%= product.price %></td>
+                                <td class="table-form-item price"><%= product.price %></td>
                                 <td class="table-form-item"><%= product.manufacturerName %></td>
                                 <td class="table-form-item"><%= product.categoryName %></td>
                                 <td class="table-form-item"><%= product.quantity %></td>
@@ -69,8 +69,9 @@
     </div>
     <div id="toast"></div>
 
-    <script src="/javascripts/admin.js"></script>
     <script src="/javascripts/toast.js"></script>
+    <script src="/javascripts/admin.js"></script>
+    <script src="/javascripts/convertPrice.js"></script>
 
 </body>
 </html>
