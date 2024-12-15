@@ -52,9 +52,9 @@ Website cung cấp các tính năng mua sắm trực tuyến cơ bản như xem 
 
 1. Khởi động MySQL thông qua Laragon.  
 2. Truy cập phpMyAdmin tại `http://localhost/phpmyadmin`.  
-3. Tạo một cơ sở dữ liệu mới với tên **`nhom16`**.  
+3. Tạo một cơ sở dữ liệu mới với tên **`group16`**.  
 4. Nhập dữ liệu từ file `group16.sql` có trong thư mục `/database`:  
-   - Chọn cơ sở dữ liệu **`nhom16`** vừa tạo.  
+   - Chọn cơ sở dữ liệu **`group16`** vừa tạo.  
    - Nhấn **Import**, sau đó chọn file `group16.sql`.  
    - Nhấn **Go** để hoàn tất việc nhập dữ liệu.  
 
@@ -68,12 +68,12 @@ Sau khi hoàn tất, cơ sở dữ liệu của bạn sẽ sẵn sàng để s�
 2. Sau khi server khởi động thành công, truy cập website tại: `http://localhost:3000`
 3. **Lưu ý:**  
    - Đảm bảo **MySQL** đã được khởi động thông qua **Laragon** trước khi chạy ứng dụng.  
-   - Kiểm tra xem cơ sở dữ liệu **`nhom16`** đã được tạo và nhập liệu từ file `group16.sql`.  
+   - Kiểm tra xem cơ sở dữ liệu **`group16`** đã được tạo và nhập liệu từ file `group16.sql`.  
    - Nếu gặp lỗi kết nối, hãy kiểm tra lại các thông tin cấu hình cơ sở dữ liệu trong file `app.js`, bao gồm:  
      - **Host:** `localhost`  
      - **User:** `root` (hoặc tài khoản bạn đã thiết lập)  
      - **Password:** (mật khẩu MySQL của bạn)  
-     - **Database:** `nhom16`  
+     - **Database:** `group16`  
 
 ### Hướng dẫn sử dụng  
 
