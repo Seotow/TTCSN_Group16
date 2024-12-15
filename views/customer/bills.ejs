@@ -79,12 +79,19 @@
                                             <td class="table-form-item"><%= detail.name %></td>
                                             <td class="table-form-item price"><%= detail.price %></td>
                                             <td class="table-form-item"><%= detail.quantity %></td>
-                                            <td class="table-form-item price"><%= billWithDetails.bill.total_price %></td>
+                                            <td class="table-form-item price"><%= detail.price * detail.quantity %></td>
                                         </tr>
                                     <% }); %>
+                                    <tr>
+                                        <td class="table-form-item"></td>
+                                        <td class="table-form-item"></td>
+                                        <td class="table-form-item"></td>
+                                        <td class="table-form-item"></td>
+                                        <td class="table-form-item">Thành tiền: </td>
+                                        <td class="table-form-item price"><%= billWithDetails.bill.total_price %></td>
+                                    </tr>
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
                 <% }); %>
@@ -125,8 +132,8 @@
                     .then(data => {
                         console.log(data)
                         if (data.success) {
-                            showSuccessMessage(data.message);
-                            // window.location.href = window.location.href
+                            // showSuccessMessage(data.message);
+                            window.location.href = window.location.href
                         } else {
                             showErrorMessage(data.message);
                         }
