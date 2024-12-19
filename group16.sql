@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 20, 2024 at 07:15 AM
+-- Generation Time: Dec 19, 2024 at 09:10 AM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.19
 
@@ -40,6 +40,45 @@ CREATE TABLE `bills` (
   `total_price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `bills`
+--
+
+INSERT INTO `bills` (`id`, `customer_id`, `receiver_name`, `receiver_phone`, `receiver_address`, `note`, `created_at`, `status`, `total_price`) VALUES
+(3, 1, 'Hieu', '1', '1', '1', '2024-11-04 18:32:54', 1, 170990000),
+(4, 1, 'Hieu', '1', '1', '1', '2024-11-04 18:36:21', 1, 180980000),
+(5, 1, 'Hieu', '1', '11', '1123', '2024-11-04 18:37:29', -1, 170990000),
+(6, 1, 'Hieu', '1', '12', '3', '2024-11-04 18:38:05', 1, 170990000),
+(7, 1, 'Hieu', '123', '123123', '132', '2024-11-04 18:39:44', -1, 201980000),
+(8, 1, 'Hieu', '1', '1', '1', '2024-11-07 18:16:27', -1, 569990000),
+(9, 1, 'Hieu', '2', '2', '2', '2024-11-07 18:18:40', -1, 460980000),
+(10, 1, 'Hieu', '4', '4', '4', '2024-11-07 18:21:08', -1, 104340000),
+(11, 1, 'Hieu', '5', '5', '5', '2024-11-08 08:24:15', -1, 183890000),
+(12, 1, 'Hieu', '2', '2', '2', '2024-11-08 08:25:54', -1, 242960000),
+(13, 1, 'Hieu', '1', '1', '1', '2024-11-08 08:26:40', -1, 52170000),
+(14, 1, 'Hieu', '2', '2', '2', '2024-11-08 08:27:29', -1, 158980000),
+(15, 1, 'Hieu', '2', '2', '2', '2024-11-08 08:28:42', -1, 40980000),
+(16, 1, 'Hieu', '6', '6', '6', '2024-11-08 08:35:43', 1, 27680000),
+(17, 1, 'Hieu', '', '', '', '2024-11-08 08:40:14', 1, 30990000),
+(18, 1, 'Hieu', '', '', '', '2024-11-08 08:41:27', 1, 30990000),
+(19, 1, '', '', '', NULL, '2024-11-08 08:43:39', 1, 1),
+(20, 1, 'Hieu', '111', '111', '111', '2024-11-08 08:54:16', 1, 52170000),
+(21, 1, 'Hieu', '1', '1', '111', '2024-11-08 09:57:59', -1, 320980000),
+(22, 1, 'Hieu', '111', '1111', '1111', '2024-11-08 09:58:57', 1, 170990000),
+(23, 1, 'Hieu', '444', '444', '44', '2024-11-08 10:00:22', 1, 40980000),
+(24, 1, 'Hieu', '4', '4', '444', '2024-11-08 11:08:57', 1, 42980000),
+(25, 1, 'Hieu', '12341', '123123', 'Last Dance', '2024-11-08 11:11:10', 1, 85160000),
+(26, 1, 'Hieu', '0327272297', 'Số 98, Liên Quan, Thạch Thất, Hà Nội', 'Last Dance Test', '2024-11-08 11:12:34', 1, 118950000),
+(27, 1, 'Hieu', '032727229714', 'Hà Nội1', '', '2024-11-17 04:35:13', -1, 49990000),
+(28, 1, 'Hieu', '032727229714', 'Hà Nội1', '', '2024-11-17 04:35:20', -1, 9990000),
+(29, 1, 'Hieu', '032727229714', 'Hà Nội1', '', '2024-11-17 04:35:27', -1, 32990000),
+(30, 1, 'Hieu', '032727229714', 'Hà Nội1', '', '2024-11-17 08:35:06', 1, 170990000),
+(31, 1, 'Hieu', '032727229714', 'Hà Nội1', '123123', '2024-11-17 09:07:18', 1, 381980000),
+(32, 1, 'Hieu', '032727229714', 'Hà Nội1', '', '2024-12-15 06:44:09', -1, 140000000),
+(33, 1, 'Hieu', '032727229714', 'Hà Nội1', '', '2024-12-15 06:47:37', -1, 9990000),
+(34, 1, 'Hieu', '032727229714', 'Hà Nội1', '12312312', '2024-12-15 08:53:42', 1, 226660001),
+(35, 1, 'Hieu', '032727229714', 'Hà Nội1', '1313', '2024-12-15 08:55:01', -1, 158980000);
+
 -- --------------------------------------------------------
 
 --
@@ -48,7 +87,7 @@ CREATE TABLE `bills` (
 
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
-  `name` varchar(200) NOT NULL,
+  `name` varchar(50) NOT NULL,
   `image` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -81,13 +120,22 @@ INSERT INTO `categories` (`id`, `name`, `image`) VALUES
 CREATE TABLE `customers` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `gender` bit(1) DEFAULT NULL,
+  `gender` tinyint(1) DEFAULT NULL,
   `birthdate` date DEFAULT NULL,
-  `phone` varchar(20) NOT NULL,
+  `phone` varchar(15) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `password` varchar(200) NOT NULL,
+  `password` varchar(50) NOT NULL,
   `address` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`id`, `name`, `gender`, `birthdate`, `phone`, `email`, `password`, `address`) VALUES
+(1, 'Hieu', 1, '2004-03-04', '032727229714', 'trunghieu152004@gmail.com', '123', 'Hà Nội1'),
+(25, 'Nguyen Hieu', NULL, NULL, '0327272297', 'trunghieu@gmail.com', '123123', NULL),
+(26, 'Nguyen Hieu', NULL, NULL, '03272722971', 'trunghieu1@gmail.com', '123123', NULL);
 
 -- --------------------------------------------------------
 
@@ -100,6 +148,86 @@ CREATE TABLE `details_bills` (
   `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `details_bills`
+--
+
+INSERT INTO `details_bills` (`bill_id`, `product_id`, `quantity`) VALUES
+(3, 648, 1),
+(3, 649, 1),
+(4, 647, 1),
+(4, 648, 1),
+(4, 649, 1),
+(5, 648, 1),
+(5, 649, 1),
+(6, 648, 1),
+(6, 649, 1),
+(7, 648, 2),
+(7, 649, 1),
+(8, 649, 4),
+(8, 653, 1),
+(9, 647, 1),
+(9, 648, 1),
+(9, 649, 3),
+(10, 651, 2),
+(10, 652, 2),
+(10, 653, 2),
+(11, 648, 1),
+(11, 651, 1),
+(11, 652, 5),
+(11, 653, 4),
+(12, 647, 1),
+(12, 648, 3),
+(12, 649, 1),
+(13, 651, 1),
+(13, 652, 1),
+(13, 653, 1),
+(14, 646, 1),
+(14, 647, 1),
+(14, 653, 1),
+(15, 647, 1),
+(15, 648, 1),
+(16, 652, 1),
+(16, 653, 1),
+(17, 648, 1),
+(18, 648, 1),
+(20, 651, 1),
+(20, 652, 1),
+(20, 653, 1),
+(21, 647, 1),
+(21, 648, 1),
+(21, 649, 2),
+(22, 648, 1),
+(22, 649, 1),
+(23, 648, 1),
+(23, 653, 1),
+(24, 653, 1),
+(24, 654, 1),
+(25, 651, 1),
+(25, 652, 1),
+(25, 653, 1),
+(25, 654, 1),
+(26, 653, 2),
+(26, 654, 3),
+(27, 645, 1),
+(28, 647, 1),
+(29, 654, 1),
+(30, 648, 1),
+(30, 649, 1),
+(31, 653, 1),
+(31, 655, 1),
+(31, 661, 2),
+(32, 649, 1),
+(33, 647, 1),
+(34, 644, 1),
+(34, 645, 1),
+(34, 647, 1),
+(34, 676, 1),
+(34, 749, 1),
+(34, 896, 1),
+(35, 646, 1),
+(35, 647, 2);
 
 -- --------------------------------------------------------
 
@@ -154,24 +282,24 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `description`, `image`, `price`, `quantity`, `manufacturer_id`, `category_id`) VALUES
-(644, 'PC GVN x MSI PROJECT ZERO WHITE (Intel i5-14400F/ VGA RTX 4060)', 'PC GVN x MSI PROJECT ZERO WHITE (Intel i5-14400F/ VGA RTX 4060)', 'thumb_project_zero_c58860d9fa3a409294c17ab45f46f612_medium.png', 24990000, 23, 1, 5),
-(645, 'PC GVN x MSI Dragon X (Intel i7-14700F/ VGA RTX 4070 Super)', 'PC GVN x MSI Dragon X (Intel i7-14700F/ VGA RTX 4070 Super)', 'thumb_i7_msi_e8ebf152f4c448de8c39a8fc49aa31d7_medium.png', 49990000, 93, 7, 13),
+(644, 'PC GVN x MSI PROJECT ZERO WHITE (Intel i5-14400F/ VGA RTX 4060)', 'PC GVN x MSI PROJECT ZERO WHITE (Intel i5-14400F/ VGA RTX 4060)', 'thumb_project_zero_c58860d9fa3a409294c17ab45f46f612_medium.png', 24990000, 1, 1, 5),
+(645, 'PC GVN x MSI Dragon X (Intel i7-14700F/ VGA RTX 4070 Super)', 'PC GVN x MSI Dragon X (Intel i7-14700F/ VGA RTX 4070 Super)', 'thumb_i7_msi_e8ebf152f4c448de8c39a8fc49aa31d7_medium.png', 49990000, 92, 7, 13),
 (646, 'PC GVN x ASUS Back to Future (Intel i9-14900K/ VGA RTX 4090)', 'PC GVN x ASUS Back to Future (Intel i9-14900K/ VGA RTX 4090)', '3_e68704a03a634e27899e3b616e94b095_medium.jpg', 139000000, 70, 10, 2),
-(647, 'PC GVN Intel i3-12100F/ VGA GTX 1650', 'PC GVN Intel i3-12100F/ VGA GTX 1650', 'pc_gvn_i3_1650_-_25_49bfa7eacaf842b5b2569b0d041c2b23_medium.jpg', 9990000, 25, 9, 3),
-(648, 'PC GVN Intel i5-14400F/ VGA RTX 4060 Ti / 12954', 'PC GVN Intel i5-14400F/ VGA RTX 4060 Ti / 12954', 'pc_nzxt_-_3_ea5b5bb589f046dcbabe890350205566_medium.png', 30990000, 85, 5, 2),
-(649, 'PC GVN x ASUS Advanced Ai (Intel Core Ultra 9 285K/ VGA RTX 4090)', 'PC GVN x ASUS Advanced Ai (Intel Core Ultra 9 285K/ VGA RTX 4090)', 'gr701_-_8_cb365132fb6e4bc8a0e87e8811ef585a_medium.png', 140000000, 57, 6, 2),
+(647, 'PC GVN Intel i3-12100F/ VGA GTX 1650', 'PC GVN Intel i3-12100F/ VGA GTX 1650', 'pc_gvn_i3_1650_-_25_49bfa7eacaf842b5b2569b0d041c2b23_medium.jpg', 9990000, 24, 9, 3),
+(648, 'PC GVN Intel i5-14400F/ VGA RTX 4060 Ti / 12954', 'PC GVN Intel i5-14400F/ VGA RTX 4060 Ti / 12954', 'pc_nzxt_-_3_ea5b5bb589f046dcbabe890350205566_medium.png', 30990000, 79, 5, 2),
+(649, 'PC GVN x ASUS Advanced Ai (Intel Core Ultra 9 285K/ VGA RTX 4090)', 'PC GVN x ASUS Advanced Ai (Intel Core Ultra 9 285K/ VGA RTX 4090)', 'gr701_-_8_cb365132fb6e4bc8a0e87e8811ef585a_medium.png', 140000000, 52, 6, 2),
 (650, 'PC GVN x AORUS XTREME ICE (Intel i9-14900K/ VGA RTX 4080 Super)', 'PC GVN x AORUS XTREME ICE (Intel i9-14900K/ VGA RTX 4080 Super)', 'pc_gvn_x_gigabyte__ice__-_32_e797aed458a94914b78e491d8c7a5ccb_medium.png', 150000000, 52, 13, 3),
-(651, 'PC GVN AMD R5-8400F/ VGA RX 7600', 'PC GVN AMD R5-8400F/ VGA RX 7600', 'pc_gvn_-_amd_-_a21_-_3_c71ab3cdd9bf45cb947b98f4561300b4_medium.png', 24490000, 89, 8, 5),
-(652, 'PC GVN Intel i5-12400F/ VGA RTX 4060', 'PC GVN Intel i5-12400F/ VGA RTX 4060', 'pc_gvn_viper_i3060_gen_13_-_3_a7538c02de68412d8a7a4c8626c1b51b_medium.png', 17690000, 23, 8, 9),
-(653, 'PC GVN Intel i3-12100F/ VGA RX 6500XT', 'PC GVN Intel i3-12100F/ VGA RX 6500XT', 'pc_gvn_rx6600_-_3_762ba90a94904a50809a93355cd819a7_medium.png', 9990000, 48, 4, 4),
+(651, 'PC GVN AMD R5-8400F/ VGA RX 7600', 'PC GVN AMD R5-8400F/ VGA RX 7600', 'pc_gvn_-_amd_-_a21_-_3_c71ab3cdd9bf45cb947b98f4561300b4_medium.png', 24490000, 88, 8, 5),
+(652, 'PC GVN Intel i5-12400F/ VGA RTX 4060', 'PC GVN Intel i5-12400F/ VGA RTX 4060', 'pc_gvn_viper_i3060_gen_13_-_3_a7538c02de68412d8a7a4c8626c1b51b_medium.png', 17690000, 21, 8, 9),
+(653, 'PC GVN Intel i3-12100F/ VGA RX 6500XT', 'PC GVN Intel i3-12100F/ VGA RX 6500XT', 'pc_gvn_rx6600_-_3_762ba90a94904a50809a93355cd819a7_medium.png', 9990000, 45, 4, 4),
 (654, 'PC GVN x Corsair iCUE (Intel i5-14600KF/ VGA RTX 4060 Ti)', 'PC GVN x Corsair iCUE (Intel i5-14600KF/ VGA RTX 4060 Ti)', '4060ti_dfb001bdb8cd410d9a85e38c5a4c568b_medium.png', 32990000, 40, 11, 9),
-(655, 'PC GVN x MSI Dragon ACE (Intel i9-14900K/ VGA RTX 4080 Super)', 'PC GVN x MSI Dragon ACE (Intel i9-14900K/ VGA RTX 4080 Super)', 'artboard_3_b5ccc140878a433db58322a5adeb8b3c_medium.png', 93990000, 16, 11, 8),
+(655, 'PC GVN x MSI Dragon ACE (Intel i9-14900K/ VGA RTX 4080 Super)', 'PC GVN x MSI Dragon ACE (Intel i9-14900K/ VGA RTX 4080 Super)', 'artboard_3_b5ccc140878a433db58322a5adeb8b3c_medium.png', 93990000, 15, 11, 8),
 (656, 'PC GVN x ASUS Back to Future (Intel i7-14700K/ VGA RTX 4070 Ti Super)', 'PC GVN x ASUS Back to Future (Intel i7-14700K/ VGA RTX 4070 Ti Super)', 'pc_ai_9d2576de0d644c8289792f295c_97a1e5eafae649a0ae9c0e7e076322a2_medium.jpg', 62590000, 8, 4, 12),
 (657, 'PC GVN x ASUS Back to Future (Intel i5-14400F/ VGA RTX 4070 Super)', 'PC GVN x ASUS Back to Future (Intel i5-14400F/ VGA RTX 4070 Super)', '2_b81eb507bdfe42b3bce05c0c9e3e92d0_medium.jpg', 37690000, 87, 3, 11),
 (658, 'PC GVN x Corsair iCUE (Intel i7-14700F/ VGA RTX 4070Ti Super)', 'PC GVN x Corsair iCUE (Intel i7-14700F/ VGA RTX 4070Ti Super)', 'pc_-_35_a9769976b4474527b9884f323069456d_medium.png', 65490000, 99, 1, 11),
 (659, 'PC GVN x MSI PROJECT ZERO WHITE (Intel i5-14400F/ VGA RTX 4060)', 'PC GVN x MSI PROJECT ZERO WHITE (Intel i5-14400F/ VGA RTX 4060)', 'thumb_project_zero_c58860d9fa3a409294c17ab45f46f612_medium.png', 24990000, 90, 7, 6),
 (660, 'PC GVN x MSI Dragon X (Intel i7-14700F/ VGA RTX 4070 Super)', 'PC GVN x MSI Dragon X (Intel i7-14700F/ VGA RTX 4070 Super)', 'thumb_i7_msi_e8ebf152f4c448de8c39a8fc49aa31d7_medium.png', 49990000, 91, 11, 14),
-(661, 'PC GVN x ASUS Back to Future (Intel i9-14900K/ VGA RTX 4090)', 'PC GVN x ASUS Back to Future (Intel i9-14900K/ VGA RTX 4090)', '3_e68704a03a634e27899e3b616e94b095_medium.jpg', 139000000, 22, 4, 6),
+(661, 'PC GVN x ASUS Back to Future (Intel i9-14900K/ VGA RTX 4090)', 'PC GVN x ASUS Back to Future (Intel i9-14900K/ VGA RTX 4090)', '3_e68704a03a634e27899e3b616e94b095_medium.jpg', 139000000, 20, 4, 6),
 (662, 'PC GVN Intel i3-12100F/ VGA GTX 1650', 'PC GVN Intel i3-12100F/ VGA GTX 1650', 'pc_gvn_i3_1650_-_25_49bfa7eacaf842b5b2569b0d041c2b23_medium.jpg', 9990000, 31, 9, 13),
 (663, 'PC GVN Intel i5-14400F/ VGA RTX 4060 Ti / 12954', 'PC GVN Intel i5-14400F/ VGA RTX 4060 Ti / 12954', 'pc_nzxt_-_3_ea5b5bb589f046dcbabe890350205566_medium.png', 30990000, 43, 3, 6),
 (664, 'PC GVN x ASUS Advanced Ai (Intel Core Ultra 9 285K/ VGA RTX 4090)', 'PC GVN x ASUS Advanced Ai (Intel Core Ultra 9 285K/ VGA RTX 4090)', 'gr701_-_8_cb365132fb6e4bc8a0e87e8811ef585a_medium.png', 140000000, 57, 4, 7),
@@ -186,7 +314,7 @@ INSERT INTO `products` (`id`, `name`, `description`, `image`, `price`, `quantity
 (673, 'PC GVN x Corsair iCUE (Intel i7-14700F/ VGA RTX 4070Ti Super)', 'PC GVN x Corsair iCUE (Intel i7-14700F/ VGA RTX 4070Ti Super)', 'pc_-_35_a9769976b4474527b9884f323069456d_medium.png', 65490000, 17, 9, 1),
 (674, 'PC GVN x MSI PROJECT ZERO WHITE (Intel i5-14400F/ VGA RTX 4060)', 'PC GVN x MSI PROJECT ZERO WHITE (Intel i5-14400F/ VGA RTX 4060)', 'thumb_project_zero_c58860d9fa3a409294c17ab45f46f612_medium.png', 24990000, 42, 3, 5),
 (675, 'PC GVN x MSI Dragon X (Intel i7-14700F/ VGA RTX 4070 Super)', 'PC GVN x MSI Dragon X (Intel i7-14700F/ VGA RTX 4070 Super)', 'thumb_i7_msi_e8ebf152f4c448de8c39a8fc49aa31d7_medium.png', 49990000, 100, 8, 8),
-(676, 'PC GVN x ASUS Back to Future (Intel i9-14900K/ VGA RTX 4090)', 'PC GVN x ASUS Back to Future (Intel i9-14900K/ VGA RTX 4090)', '3_e68704a03a634e27899e3b616e94b095_medium.jpg', 139000000, 49, 6, 12),
+(676, 'PC GVN x ASUS Back to Future (Intel i9-14900K/ VGA RTX 4090)', 'PC GVN x ASUS Back to Future (Intel i9-14900K/ VGA RTX 4090)', '3_e68704a03a634e27899e3b616e94b095_medium.jpg', 139000000, 48, 6, 12),
 (677, 'PC GVN Intel i3-12100F/ VGA GTX 1650', 'PC GVN Intel i3-12100F/ VGA GTX 1650', 'pc_gvn_i3_1650_-_25_49bfa7eacaf842b5b2569b0d041c2b23_medium.jpg', 9990000, 38, 9, 7),
 (678, 'PC GVN Intel i5-14400F/ VGA RTX 4060 Ti / 12954', 'PC GVN Intel i5-14400F/ VGA RTX 4060 Ti / 12954', 'pc_nzxt_-_3_ea5b5bb589f046dcbabe890350205566_medium.png', 30990000, 36, 10, 8),
 (679, 'Laptop gaming Lenovo LOQ 15IAX9 83GS001SVN', 'Laptop gaming Lenovo LOQ 15IAX9 83GS001SVN', 'khung-laptop-23_fc6b74bf6c0e47209d09c4437ed57dd4_medium.png', 18990000, 68, 3, 9),
@@ -259,7 +387,7 @@ INSERT INTO `products` (`id`, `name`, `description`, `image`, `price`, `quantity
 (746, 'Laptop ASUS Zenbook Duo OLED UX8406MA PZ142W', 'Laptop ASUS Zenbook Duo OLED UX8406MA PZ142W', 'ux8406ma-pz142w_new_1_323777fbd2ea4f788f45c1165ed81427_medium.jpg', 54990000, 62, 10, 14),
 (747, 'Laptop ASUS Zenbook Duo OLED UX8406MA PZ307W', 'Laptop ASUS Zenbook Duo OLED UX8406MA PZ307W', '7_27_a3f6dfa7a8854d958953ad81268880d2_medium.png', 45990000, 6, 2, 1),
 (748, 'Laptop LG Gram 2023 14Z90R GAH53A5 / 11086', 'Laptop LG Gram 2023 14Z90R GAH53A5 / 11086', 'lg-gram-2023-fix_28f08b20a1724869a1d5da4920697371_medium.png', 23890000, 27, 13, 6),
-(749, 'Chuột Logitech G Pro 2 Lightspeed Wireless Black', 'Chuột Logitech G Pro 2 Lightspeed Wireless Black', 'pro2-lightspeed-black-new-galler_84b2343575d14402814bbcf5389c1f24_medium.png', 2690000, 15, 2, 4),
+(749, 'Chuột Logitech G Pro 2 Lightspeed Wireless Black', 'Chuột Logitech G Pro 2 Lightspeed Wireless Black', 'pro2-lightspeed-black-new-galler_84b2343575d14402814bbcf5389c1f24_medium.png', 2690000, 14, 2, 4),
 (750, 'Chuột Logitech G Pro 2 Lightspeed Wireless White', 'Chuột Logitech G Pro 2 Lightspeed Wireless White', 'pro2-lightspeed-white-gallery1_a41f9f8af44c4758922011fa73633c7a_medium.png', 2690000, 41, 7, 1),
 (751, 'Chuột Logitech G309 Lightspeed Wireless Bluetooth Đen', 'Chuột Logitech G309 Lightspeed Wireless Bluetooth Đen', 'black_b406079deeae46858542c5af8f18771b_medium.png', 1690000, 9, 3, 10),
 (752, 'Chuột Logitech G309 Lightspeed Wireless Bluetooth Trắng', 'Chuột Logitech G309 Lightspeed Wireless Bluetooth Trắng', 'white_e563efbdda644fe59e2227176c1607fd_medium.png', 1690000, 45, 7, 12),
@@ -398,7 +526,15 @@ INSERT INTO `products` (`id`, `name`, `description`, `image`, `price`, `quantity
 (885, 'Màn hình Philips 27M2N3200S 27inch  IPS 180Hz chuyên game', 'Màn hình Philips 27M2N3200S 27inch  IPS 180Hz chuyên game', 'philips_27m2n3200s_gearvn_31613a62a7c94e939a05feaca01c4c2a_medium.jpg', 3590000, 90, 13, 14),
 (886, 'Màn hình ViewSonic VX2428J 24inch  Fast IPS 180Hz Gsync chuyên game / 9851', 'Màn hình ViewSonic VX2428J 24inch  Fast IPS 180Hz Gsync chuyên game / 9851', 'viewsonic_vx2428j_gearvn_60f31c4113114072b56e421577507e06_53fe3e1fa38d4845b222cb2d8497787f_medium.jpg', 3190000, 28, 3, 1),
 (887, 'Màn hình Dahua DHI-LM25-E231 25inch  IPS 180Hz chuyên game', 'Màn hình Dahua DHI-LM25-E231 25inch  IPS 180Hz chuyên game', 'thit-k-cha-c-tn-_4__d80b68c7123a41b89bf213ffadb4d43f_medium.png', 2590000, 21, 3, 10),
-(888, 'Màn hình Viewsonic VA2432-H 24inch  IPS 100Hz viền mỏng', 'Màn hình Viewsonic VA2432-H 24inch  IPS 100Hz viền mỏng', '1_6bf24e36cbd34fd990728781a18e1653_befa433a45b84594bf6aa5a5c8526365_medium.jpg', 2190000, 55, 5, 7);
+(888, 'Màn hình Viewsonic VA2432-H 24inch  IPS 100Hz viền mỏng', 'Màn hình Viewsonic VA2432-H 24inch  IPS 100Hz viền mỏng', '1_6bf24e36cbd34fd990728781a18e1653_befa433a45b84594bf6aa5a5c8526365_medium.jpg', 2190000, 55, 5, 7),
+(890, 'Seotoww', '13', '1730364787777.jpeg', 13, 13, 5, 1),
+(891, 'Nguyen Hieu', 'Test', '1730364818361.jpeg', 10000000000, 11, 5, 2),
+(892, 'Test3', 'Test 4', '1730371820499.jpg', 100000000, 13, 5, 1),
+(893, '1', '313', '1730371690617.jpeg', 31, 313, 5, 14),
+(894, 'Sản phẩm 1000', 'Test lần 10000', '1730371891090.jpeg', 100000000, 44, 5, 1),
+(895, 'Sp 10010000', 'Mô tả 4', '1731827111198.jpg', 10000, 13, 5, 1),
+(896, '123', '1', '1731832284367.jpeg', 1, 0, 5, 1),
+(897, 'Nguyen Hieu', '12312', '1734252938985.jpg', 10000000000, 15555, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -410,13 +546,24 @@ CREATE TABLE `staffs` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `gender` tinyint(1) NOT NULL DEFAULT '0',
-  `birthdate` timestamp NULL DEFAULT NULL,
+  `birthdate` date DEFAULT NULL,
   `phone` varchar(15) NOT NULL,
-  `address` varchar(200) NOT NULL,
-  `email` varchar(200) NOT NULL,
-  `password` varchar(200) NOT NULL,
+  `address` text NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
   `level` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `staffs`
+--
+
+INSERT INTO `staffs` (`id`, `name`, `gender`, `birthdate`, `phone`, `address`, `email`, `password`, `level`) VALUES
+(1, 'Hieu', 0, '2004-03-15', '', '', 'trunghieu152004@gmail.com', '13', 1),
+(3, 'Hieu', 0, NULL, '0327272297', '', 'trunghieu1520044@gmail.com', '13', 0),
+(9, 'Hieu', 1, NULL, '012345678', '', 'hieu@gmail.com', '123', 1),
+(10, 'Huy', 1, NULL, '012345677', '', 'huy@gmail.com', '123', 1),
+(11, 'Hoan', 1, NULL, '012345676', '', 'hoan@gmail.com', '123', 1);
 
 --
 -- Indexes for dumped tables
@@ -481,7 +628,7 @@ ALTER TABLE `staffs`
 -- AUTO_INCREMENT for table `bills`
 --
 ALTER TABLE `bills`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -493,7 +640,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `manufacturers`
@@ -505,13 +652,13 @@ ALTER TABLE `manufacturers`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=889;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=898;
 
 --
 -- AUTO_INCREMENT for table `staffs`
 --
 ALTER TABLE `staffs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
