@@ -1,112 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= product.name %></title>
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    <title>
+        <%= product.name %>
+    </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
         integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer" />
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
         integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer" />
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/stylesheets/base.css" />
     <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
+
 <body>
     <%- include('menu.ejs') %>
-    <%- include('modal.ejs') %>
-    <div class="grid">
-        <!-- Product -->
-        <div class="grid__row ">
-            <div class="grid__col-12 product-details">
-                <div class="grid__col-3 product-details-image">
-                    <div class="product-details-img" style="background-image: url('/images/products/<%= product.image %>'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
-                </div>
-                <div class="grid__col-9">
-                    <div class="product-details-body">
-                        <div class="product-details-name">
-                            <span><%= product.name %></span>
-                        </div>
-                        <div class="product-details-moreinfo">
-                            
-                        </div>
-                        <div class="product-details-price">
-                            <span><%= product.price %></span>
-                        </div>
-                        <div class="product-details-content-section product-details-transport">
-                            <span>Vận chuyển</span>
-                            <div class="product-details-transportinfo">
-                                <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg//assets/1cdd37339544d858f4d0ade5723cd477.png" width="25" height="15" class="product-details-transport-freeship">
-                                <span>Miễn phí vận chuyển</span>
+        <%- include('modal.ejs') %>
+            <div class="grid">
+                <!-- Product -->
+                <div class="grid__row ">
+                    <div class="grid__col-12 product-details">
+                        <div class="grid__col-3 product-details-image">
+                            <div class="product-details-img"
+                                style="background-image: url('/images/products/<%= product.image %>'); background-size: contain; background-repeat: no-repeat; background-position: center;">
                             </div>
                         </div>
-                        <div class="product-details-content-section product-details-desc">
-                            <span>Mô tả</span>
-                            <span><%= product.description %></span>
-                        </div>
-                        <div class="product-details-content-section product-details-quantity">
-                            <span>
-                                Số lượng
-                            </span>
-                            <div class="product-details-quantity-input">
-                                <button class="product-details-btn decrease"><svg width="10px" enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="shopee-svg-icon "><polygon points="4.5 4.5 3.5 4.5 0 4.5 0 5.5 3.5 5.5 4.5 5.5 10 5.5 10 4.5"></polygon></svg></button>
-                                <input class="product-details-btn product-details-input" type="text" role="spinbutton" aria-valuenow="1" value="1" maxValue="<%= product.quantity %>">
-                                <button class="product-details-btn increase"><svg width="10px" enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0" class="shopee-svg-icon icon-plus-sign"><polygon points="10 4.5 5.5 4.5 5.5 0 4.5 0 4.5 4.5 0 4.5 0 5.5 4.5 5.5 4.5 10 5.5 10 5.5 5.5 10 5.5"></polygon></svg></button>
+                        <div class="grid__col-9">
+                            <div class="product-details-body">
+                                <div class="product-details-name">
+                                    <span>
+                                        <%= product.name %>
+                                    </span>
+                                </div>
+                                <div class="product-details-moreinfo">
+
+                                </div>
+                                <div class="product-details-price">
+                                    <span>
+                                        <%= product.price %>
+                                    </span>
+                                </div>
+                                <div class="product-details-content-section product-details-transport">
+                                    <span>Vận chuyển</span>
+                                    <div class="product-details-transportinfo">
+                                        <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg//assets/1cdd37339544d858f4d0ade5723cd477.png"
+                                            width="25" height="15" class="product-details-transport-freeship">
+                                        <span>Miễn phí vận chuyển</span>
+                                    </div>
+                                </div>
+                                <div class="product-details-content-section product-details-desc">
+                                    <span>Mô tả</span>
+                                    <span>
+                                        <%= product.description %>
+                                    </span>
+                                </div>
+                                <div class="product-details-content-section product-details-quantity">
+                                    <span>
+                                        Số lượng
+                                    </span>
+                                    <div class="product-details-quantity-input">
+                                        <button class="product-details-btn decrease"><svg width="10px"
+                                                enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0"
+                                                class="shopee-svg-icon ">
+                                                <polygon
+                                                    points="4.5 4.5 3.5 4.5 0 4.5 0 5.5 3.5 5.5 4.5 5.5 10 5.5 10 4.5">
+                                                </polygon>
+                                            </svg></button>
+                                        <input class="product-details-btn product-details-input" type="text"
+                                            role="spinbutton" aria-valuenow="1" value="1"
+                                            maxValue="<%= product.quantity %>">
+                                        <button class="product-details-btn increase"><svg width="10px"
+                                                enable-background="new 0 0 10 10" viewBox="0 0 10 10" x="0" y="0"
+                                                class="shopee-svg-icon icon-plus-sign">
+                                                <polygon
+                                                    points="10 4.5 5.5 4.5 5.5 0 4.5 0 4.5 4.5 0 4.5 0 5.5 4.5 5.5 4.5 10 5.5 10 5.5 5.5 10 5.5">
+                                                </polygon>
+                                            </svg></button>
+                                    </div>
+                                    <span class="product-details-quantityleft">
+                                        Còn <%= product.quantity %>
+                                    </span>
+                                </div>
+                                <div class="product-details-content-section product-details-buy">
+                                    <button class="product-details-addtocart" id="add-to-cart"
+                                        data-id="<%= product.id %>" data-quantity="<%= product.quantity %>"
+                                        data-image="<%= product.image %>" data-name="<%= product.name %>"
+                                        data-price="<%= product.price %>" data-buyquantity="1">
+                                        <i class="icon-add-to-cart fas fa-cart-plus"></i>
+                                        <span>Thêm vào giỏ hàng</span>
+                                    </button>
+                                    <button onclick="buy()" class="product-details-buy-btn">Mua ngay</button>
+                                </div>
+                                <div class="product-details-content-section product-details-guarantee">
+                                    <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg//assets/67454c89080444c5997b53109072c9e0.png"
+                                        class="product-details-guarantee-img">
+                                    <span class="product-details-guarantee-text">Đảm bảo</span>
+                                    <span>3 ngày Trả hàng / Hoàn tiền</span>
+                                </div>
                             </div>
-                            <span class="product-details-quantityleft">
-                                Còn <%= product.quantity %>
-                            </span>
-                        </div>
-                        <div class="product-details-content-section product-details-buy">
-                            <button class="product-details-addtocart" id="add-to-cart"
-                                data-id="<%= product.id %>" 
-                                data-quantity="<%= product.quantity %>"
-                                data-image="<%= product.image %>"
-                                data-name="<%= product.name %>"
-                                data-price="<%= product.price %>"
-                                data-buyquantity="1"
-                            >
-                                <i class="icon-add-to-cart fas fa-cart-plus"></i>
-                                <span>Thêm vào giỏ hàng</span>
-                            </button>
-                            <a href="#" class="product-details-buy-btn">Mua ngay</a>
-                        </div>
-                        <div class="product-details-content-section product-details-guarantee">
-                            <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg//assets/67454c89080444c5997b53109072c9e0.png" class="product-details-guarantee-img">
-                            <span class="product-details-guarantee-text">Đảm bảo</span>
-                            <span>3 ngày Trả hàng / Hoàn tiền</span>
                         </div>
                     </div>
+
                 </div>
             </div>
-            
-        </div>
-    </div>
 
-    <%- include('footer') %>
+            <%- include('footer') %>
 
-    <div id="toast"></div>
-    
-        <script src="/javascripts/validator.js"></script>
-        <script src="/javascripts/convertPrice.js"></script> 
-        <script src="/javascripts/toast.js"></script>
-        <script src="/javascripts/index.js"></script>
-    
-        <script>
-            Validator('#signup-form')
-            Validator('#signin-form')
-        </script>
-        <%- include('../message.ejs') %>
+                <div id="toast"></div>
+
+                <script src="/javascripts/validator.js"></script>
+                <script src="/javascripts/convertPrice.js"></script>
+                <script src="/javascripts/toast.js"></script>
+                <script src="/javascripts/index.js"></script>
+                <script>
+                    function buy() {
+                        let amount = <%= product.price %>; // EJS sẽ thay giá trị vào đây lúc render HTML
+                        amount /= 1000
+
+
+
+
+                        fetch('http://localhost:3000/createPaymentLink', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ amount, description: "gr16" })  // Gửi giá lên API
+                        })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error("Có lỗi khi gọi API");
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                data = data.dataFromCreatePaymentLink
+
+                                if (data.data?.checkoutUrl) {
+                                    localStorage.setItem("transId", data.data?.paymentLinkId)
+                                    window.location.href = data.data?.checkoutUrl
+                                } else {
+                                    alert("khởi tạo giao dịch chưa thành công! thử lại.")
+                                }
+                                return
+                            })
+                            .catch(error => {
+                                console.error("Lỗi:", error);
+                                alert("Không thể tạo liên kết thanh toán.");
+                            });
+
+                        // Hoặc bạn có thể xử lý tiếp như chuyển trang, thêm giỏ hàng...
+                    }
+                </script>
+
+                <script>
+                    Validator('#signup-form')
+                    Validator('#signin-form')
+                </script>
+                <%- include('../message.ejs') %>
 </body>
+
 </html>
