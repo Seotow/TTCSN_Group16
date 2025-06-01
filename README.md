@@ -93,6 +93,28 @@ Sau khi hoàn tất, cơ sở dữ liệu của bạn sẽ sẵn sàng để s�
 
 ---
 
+## 🚀 Deployment  
+
+This project is configured for deployment on multiple free hosting platforms. See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions.
+
+### Quick Deploy Options:
+- **Render.com** (Recommended): Full-stack with database support
+- **Railway.app**: Simple deployment with built-in database
+- **Vercel**: Frontend deployment (limited backend support)
+
+### Environment Variables Required:
+```env
+NODE_ENV=production
+DB_HOST=your-database-host
+DB_USER=your-database-user  
+DB_PASSWORD=your-database-password
+DB_NAME=group16
+DB_PORT=3306
+SESSION_SECRET=your-secret-key
+```
+
+---
+
 ### Thông tin nhóm thực hiện  
 - **Nguyễn Trung Hiếu**  
 - **Nguyễn Mạnh Hoàn**  

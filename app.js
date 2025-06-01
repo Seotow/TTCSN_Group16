@@ -1,3 +1,6 @@
+// Load environment variables
+require('dotenv').config();
+
 var createError = require('http-errors');
 var express = require('express');
 var session = require('express-session');
@@ -12,10 +15,14 @@ var adminRouter = require('./routes/adminRoutes');
 var app = express();
 
 app.use(session({
-  secret: 'secret',
+  secret: process.env.SESSION_SECRET || 'secret',
   resave: false,
   saveUninitialized: true,
-  cookie: { maxAge: 86400000 }  // 24 hours, default
+  cookie: { 
+    maxAge: 86400000,  // 24 hours
+    secure: process.env.NODE_ENV === 'production',
+    httpOnly: true
+  }
 }));
 
 // view engine setup
@@ -40,7 +47,17 @@ app.use('/admin', adminRouter);
 
 
 
-// // catch 404 and forward to error handler
+// // Health check endpoint for deployment monitoring
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'OK',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
+
+// catch 404 and forward to error handler
 // app.use(function(req, res, next) {
 //   next(createError(404));
 // });

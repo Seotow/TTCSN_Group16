@@ -61,7 +61,12 @@ const addProduct = (req, res) => {
     const { name, description, price, quantity, manufacturer_id, category_id } = req.body;
     const image = req.file ? req.file.filename : null; 
     productModel.addProduct({ name, description, image, price, quantity, manufacturer_id, category_id }, (err) => {
-        if (err) return res.status(500).send('Lỗi khi thêm sản phẩm');
+        if (err) {
+            req.session.message = { type: 'error', text: 'Lỗi khi thêm sản phẩm' };
+            return res.redirect('/admin/products');
+        }
+
+        req.session.message = { type: 'success', text: 'Thêm sản phẩm thành công' };
         res.redirect('/admin/products');
     });
 };
@@ -102,7 +107,12 @@ const editProduct = (req, res) => {
     const image = image_new || image_old;
 
     productModel.updateProduct(id, { name, description, price, quantity, manufacturer_id, category_id, image }, (err) => {
-        if (err) return res.status(500).send('Lỗi khi cập nhật sản phẩm');
+        if (err) {
+            req.session.message = { type: 'error', text: 'Lỗi khi chỉnh sửa sản phẩm' };
+            return res.redirect('/admin/products');
+        }
+
+        req.session.message = { type: 'success', text: 'Chỉnh sửa sản phẩm thành công' };
         res.redirect('/admin/products');
     });
 };
@@ -136,7 +146,12 @@ const addStaff = (req, res) => {
     const genderValue = parseInt(gender);
 
     staffModel.addStaff({ name, gender: genderValue, birthdate, phone, address, email, password, level }, (err) => {
-        if (err) return res.status(500).send('Lỗi khi thêm nhân viên' +err.message);
+        if (err) {
+            req.session.message = { type: 'error', text: 'Lỗi khi thêm nhân viên' };
+            return res.redirect('/admin/staffs');
+        }
+
+        req.session.message = { type: 'success', text: 'Thêm nhân viên thành công' };
         res.redirect('/admin/staffs');
     });
 };
@@ -163,8 +178,12 @@ const editStaff = (req, res) => {
     const staffData = { name, gender, birthdate, phone, address, email, password };
 
     staffModel.updateStaff(id, staffData, (err) => {
-        console.log(err);
-        if (err) return res.status(500).send('Lỗi khi cập nhật thông tin nhân viên');
+        if (err) {
+            req.session.message = { type: 'error', text: 'Lỗi khi chỉnh sửa nhân viên' };
+            return res.redirect('/admin/staffs');
+        }
+
+        req.session.message = { type: 'success', text: 'Chỉnh sửa nhân viên thành công' };
         res.redirect('/admin/staffs');
     });
 };
@@ -173,7 +192,12 @@ const editStaff = (req, res) => {
 const deleteStaff = (req, res) => {
     const { id } = req.params;
     staffModel.deleteStaff(id, (err) => {
-        if (err) return res.status(500).send('Lỗi khi xóa nhân viên');
+        if (err) {
+            req.session.message = { type: 'error', text: 'Lỗi khi xóa nhân viên' };
+            return res.redirect('/admin/staffs');
+        }
+
+        req.session.message = { type: 'success', text: 'Chỉnh sửa nhân viên thành công' };
         res.redirect('/admin/staffs');
     });
 };
