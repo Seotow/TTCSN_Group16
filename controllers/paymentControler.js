@@ -85,15 +85,7 @@ class PaymentController {
                 })
             }
 
-            await globalThis.connection.executeQuery(`update user set balance = balance + ${checkPayment?.data?.amountPaid / 80} where userId = ${userId}`)
-                .catch((e) => {
-                    throw new Error(e)
-                })
-
-            await globalThis.connection.executeQuery(`insert into payment (userId,amount , transId) values (?,?,?)`, [userId, checkPayment?.data?.amountPaid, transId])
-                .catch((e) => {
-                    throw new Error(e)
-                })
+            //update code giao dich thanh cong tai day
 
             return res.status(200).json({
                 message: "ok"
