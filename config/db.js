@@ -11,24 +11,54 @@ const dbConfig = {
     connectTimeout: 60000,
     acquireTimeout: 60000,
     timeout: 60000,
-    multipleStatements: true
-};
-
-// Add SSL configuration for production (InfinityFree requires SSL)
-if (process.env.NODE_ENV === 'production') {
-    dbConfig.ssl = {
+    multipleStatements: true,
+    // Enable SSL for production (Railway requires SSL)
+    ssl: process.env.NODE_ENV === 'production' ? {
         rejectUnauthorized: false
-    };
-}
+    } : false
+};
 
 const db = mysql.createConnection(dbConfig);
 
+// Enhanced connection with better error handling
 db.connect((err) => {
     if (err) {
         console.error('Database connection failed:', err);
-        throw err;
+        console.error('Config:', {
+            host: dbConfig.host,
+            user: dbConfig.user,
+            database: dbConfig.database,
+            port: dbConfig.port,
+            ssl: !!dbConfig.ssl
+        });
+        
+        // In production, retry connection
+        if (process.env.NODE_ENV === 'production') {
+            console.log('Retrying connection in 5 seconds...');
+            setTimeout(() => {
+                process.exit(1);
+            }, 5000);
+        } else {
+            throw err;
+        }
+    } else {
+        console.log(`✅ Connected to database: ${dbConfig.database} at ${dbConfig.host}`);
     }
-    console.log('Connected to database');
+});
+
+// Handle connection errors and reconnection
+db.on('error', (err) => {
+    console.error('Database error:', err);
+    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+        console.log('Reconnecting to database...');
+        // Create new connection
+        const newDb = mysql.createConnection(dbConfig);
+        newDb.connect((err) => {
+            if (!err) {
+                console.log('Reconnected successfully');
+            }
+        });
+    }
 });
 
 module.exports = db;

@@ -1,6 +1,7 @@
 # TTCSN Group 16 - Xây Dựng Website Bán Đồ Điện Tử  
 
 ## Mô tả dự án  
+[Demo](https://ttcsngroup16-production.up.railway.app/)
 Đây là một dự án website thương mại điện tử bán đồ điện tử được xây dựng bằng HTML, CSS, JavaScript thuần, Node.js, EJS, và MySQL.  
 Website cung cấp các tính năng mua sắm trực tuyến cơ bản như xem sản phẩm, tìm kiếm, quản lý giỏ hàng, đặt hàng, và quản lý dành cho quản trị viên.  
 
@@ -93,23 +94,23 @@ Sau khi hoàn tất, cơ sở dữ liệu của bạn sẽ sẵn sàng để s�
 
 ---
 
-## 🚀 Deployment  
+## Deployment  
 
-This project is configured for deployment on multiple free hosting platforms. See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions.
+Dự án này được cấu hình để deploy lên các hosting miễn phí
 
-### Quick Deploy Options:
-- **Render.com** (Recommended): Full-stack with database support
-- **Railway.app**: Simple deployment with built-in database
-- **Vercel**: Frontend deployment (limited backend support)
+### Một số lựa chọn:
+- **Railway.app**: Hỗ trợ nodejs
+- **Vercel**: Hạn chế về mặt backend
 
-### Environment Variables Required:
+### Thông tin cần thiết cho các biến môi trường
 ```env
 NODE_ENV=production
 DB_HOST=your-database-host
 DB_USER=your-database-user  
 DB_PASSWORD=your-database-password
-DB_NAME=group16
-DB_PORT=3306
+DB_NAME=your-database-name
+DB_PORT=your-database-port
+PORT=your-port
 SESSION_SECRET=your-secret-key
 ```
 
