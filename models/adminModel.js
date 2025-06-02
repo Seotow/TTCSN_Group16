@@ -1,7 +1,7 @@
 const db = require('../config/db');
 
 const getAdminByEmailAndPassword = (email, password, callback) => {
-    const query = 'SELECT * FROM STAFFS WHERE email = ? AND password = ?';
+    const query = 'SELECT * FROM staffs WHERE email = ? AND password = ?';
     db.query(query, [email, password], (err, results) => {
         if (err) {
             return callback(err, null);

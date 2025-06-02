@@ -5,12 +5,12 @@ const getBillDetailsById = (billId, callback) => {
     const sql = `
         SELECT 
             product_id,
-            PRODUCTS.image,
-            PRODUCTS.name,
-            PRODUCTS.price,
-            DETAILS_BILLS.quantity
-        FROM DETAILS_BILLS
-        JOIN PRODUCTS ON DETAILS_BILLS.product_id = PRODUCTS.id
+            products.image,
+            products.name,
+            products.price,
+            details_bills.quantity
+        FROM details_bills
+        JOIN products ON details_bills.product_id = products.id
         WHERE bill_id = ?
     `;
     db.query(sql, [billId], (err, results) => {
@@ -32,8 +32,8 @@ const getBillById = (billId, callback) => {
             note,
             created_at,
             status,
-            total_price
-        FROM BILLS
+            total_price        
+        FROM bills
         WHERE id = ?
     `;
     db.query(sql, [billId], (err, result) => {
@@ -73,7 +73,7 @@ const getAllBills = (callback) => {
             created_at,
             status,
             total_price
-        FROM BILLS
+        FROM bills
         ORDER BY FIELD(status, 0, 1, -1), created_at DESC
     `;
     db.query(sql, (err, results) => {
@@ -85,9 +85,8 @@ const getAllBills = (callback) => {
 };
 
 // Hàm cập nhật trạng thái hóa đơn
-const updateBillStatus = (billId, status, callback) => {
-    const sql = `
-        UPDATE BILLS 
+const updateBillStatus = (billId, status, callback) => {    const sql = `
+        UPDATE bills 
         SET status = ?
         WHERE id = ?
     `;

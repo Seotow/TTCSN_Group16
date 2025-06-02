@@ -12,7 +12,7 @@ const formatDate = (dateString) => {
 // Tìm người dùng dựa vào email và mật khẩu
 const getUserByEmailAndPassword = (email, password, callback) => {
 
-    const query = 'SELECT * FROM CUSTOMERS WHERE email = ? AND password = ?';
+    const query = 'SELECT * FROM customers WHERE email = ? AND password = ?';
     db.query(query, [email, password], (err, results) => {
 
         if (err) {
