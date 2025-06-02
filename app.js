@@ -47,14 +47,36 @@ app.use('/admin', adminRouter);
 
 
 
-// // Health check endpoint for deployment monitoring
-app.get('/health', (req, res) => {
-  res.status(200).json({
-    status: 'OK',
-    timestamp: new Date().toISOString(),
-    uptime: process.uptime(),
-    environment: process.env.NODE_ENV || 'development'
-  });
+// Health check endpoint for deployment monitoring (optimized for free tier)
+app.get('/health', async (req, res) => {
+  try {
+    // Skip database test for frequent health checks to save resources
+    const skipDbTest = req.query.quick === 'true';
+    let dbStatus = 'skipped';
+    
+    if (!skipDbTest) {
+      const { testConnection } = require('./config/dbUtils');
+      const dbHealthy = await testConnection();
+      dbStatus = dbHealthy ? 'connected' : 'disconnected';
+    }
+    
+    res.status(200).json({
+      status: 'OK',
+      timestamp: new Date().toISOString(),
+      uptime: Math.floor(process.uptime()),
+      environment: process.env.NODE_ENV || 'development',
+      database: dbStatus
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 'ERROR',
+      timestamp: new Date().toISOString(),
+      uptime: Math.floor(process.uptime()),
+      environment: process.env.NODE_ENV || 'development',
+      database: 'error',
+      error: error.message
+    });
+  }
 });
 
 // catch 404 and forward to error handler
