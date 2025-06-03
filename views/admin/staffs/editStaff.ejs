@@ -22,37 +22,42 @@
                     <form action="../edit/<%= staff.id %>" id="form_update-staff" class="table-form" method="post">
                         <div class="form-group table-form-group">
                             <label for="name">Tên nhân viên</label>
-                            <input rules="required" class="form-control" type="text" name="name" id="name" value="<%= staff.name %>">
+                            <input rules="required|min:2|max:50" class="form-control" type="text" name="name" id="name" value="<%= staff.name %>">
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group table-form-group">
                             <label for="gender">Giới tính</label>
-                            <select name="gender" id="gender" class="form-control">
+                            <select name="gender" id="gender" class="form-control" rules="required">
+                                <option value="">Chọn giới tính</option>
                                 <option value="1" <% if (staff.gender === 1) { %> selected <% } %> >Nam</option>
-                                <option value="0" <% if (staff.gender === 0) { %> selected <% } %> >Nữ </option>
+                                <option value="0" <% if (staff.gender === 0) { %> selected <% } %> >Nữ</option>
                             </select>
+                            <span class="form-message"></span>
                         </div>
                         <div class="form-group table-form-group">
                             <label for="birthdate">Ngày sinh</label>
-                            <% console.log(staff) %>
-                            <input class="form-control" type="date" name="birthdate" id="birthdate" value="<%= staff.birthdate %>">
+                            <input class="form-control" type="date" name="birthdate" id="birthdate" rules="required" max="<%= new Date().toISOString().split('T')[0] %>" value="<%= staff.birthdate %>">
+                            <span class="form-message"></span>
                         </div>
                         <div class="form-group table-form-group">
                             <label for="phone">Số điện thoại</label>
-                            <input rules="required" class="form-control" type="text" name="phone" id="phone" value="<%= staff.phone %>">
+                            <input rules="required|phone" class="form-control" type="tel" pattern="[0-9]*" inputmode="numeric" name="phone" id="phone" value="<%= staff.phone %>">
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group table-form-group">
                             <label for="address">Địa chỉ</label>
                             <input class="form-control" type="text" name="address" id="address" value="<%= staff.address %>">
+                            <span class="form-message"></span>
                         </div>
                         <div class="form-group table-form-group">
                             <label for="email">Email</label>
                             <input class="form-control" type="email" name="email" id="email" value="<%= staff.email %>">
+                            <span class="form-message"></span>
                         </div>
                         <div class="form-group table-form-group">
-                            <label for="password">Password</label>
+                            <label for="password">Mật khẩu</label>
                             <input class="form-control" type="password" name="password" id="password" value="<%= staff.password %>">
+                            <span class="form-message"></span>
                         </div>
                         <button type="submit" class="btn btn-primary">Sửa</button>
                         <a class="btn btn-secondary" href="../../staffs">Hủy</a>
@@ -67,7 +72,57 @@
         <script src="/javascripts/toast.js"></script>
 
         <script>
-            // Validator('#form_update-staff')
+            // Thêm các quy tắc validation tùy chỉnh
+            const validatorRules = {
+                phone(value) {
+                    const regex = /^[0-9]{9,11}$/;
+                    return regex.test(value) ? undefined : 'Số điện thoại phải có 9-11 chữ số';
+                },
+                birthdate(value) {
+                    const selectedDate = new Date(value);
+                    const currentDate = new Date();
+                    if (selectedDate > currentDate) {
+                        return 'Ngày sinh không được lớn hơn ngày hiện tại';
+                    }
+                    return undefined;
+                }
+            };
+
+            // Khởi tạo validator với các quy tắc tùy chỉnh
+            const validator = new Validator('#form_update-staff', validatorRules);
+
+            // Xử lý sự kiện input cho số điện thoại
+            const phoneInput = document.getElementById('phone');
+            phoneInput.addEventListener('input', function(e) {
+                // Chỉ cho phép nhập số
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+
+            // Xử lý sự kiện paste cho số điện thoại
+            phoneInput.addEventListener('paste', function(e) {
+                e.preventDefault();
+                const pastedText = (e.clipboardData || window.clipboardData).getData('text');
+                if (/^\d+$/.test(pastedText)) {
+                    this.value = pastedText;
+                }
+            });
+
+            // Xử lý sự kiện change cho ngày sinh
+            const birthdateInput = document.getElementById('birthdate');
+            birthdateInput.addEventListener('change', function() {
+                const selectedDate = new Date(this.value);
+                const currentDate = new Date();
+                
+                if (selectedDate > currentDate) {
+                    this.setCustomValidity('Ngày sinh không được lớn hơn ngày hiện tại');
+                    this.parentElement.classList.add('invalid');
+                    this.parentElement.querySelector('.form-message').innerHTML = 'Ngày sinh không được lớn hơn ngày hiện tại';
+                } else {
+                    this.setCustomValidity('');
+                    this.parentElement.classList.remove('invalid');
+                    this.parentElement.querySelector('.form-message').innerHTML = '';
+                }
+            });
         </script>
     </div>
 </body>
