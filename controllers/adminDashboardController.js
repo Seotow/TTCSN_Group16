@@ -62,9 +62,9 @@
         const image = req.file ? req.file.filename : null; 
         productModel.addProduct({ name, description, image, price, quantity, manufacturer_id, category_id }, (err) => {
             if (err) return res.status(500).send('Lỗi khi thêm sản phẩm');
-            // res.redirect('/admin/products');
+            res.redirect('/admin/products');
             // Trả về JSON nếu thêm thành công
-            return res.status(200).json({ success: true, message: 'Thêm sản phẩm thành công' });
+            // return res.status(200).json({ success: true, message: 'Thêm sản phẩm thành công' });
         });
     };
 
