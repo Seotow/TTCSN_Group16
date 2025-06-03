@@ -13,7 +13,7 @@ const viewUserInfo = (req, res) => {
 };
 
 const updateUserInfo = (req, res) => {
-    const userId = req.session.user.id;
+    const userId = req.params.id;
     const { name, gender, birthdate, phone, address } = req.body;
 
     userModel.updateUserInforById(userId, { name, gender, birthdate, phone, address }, (err) => {
