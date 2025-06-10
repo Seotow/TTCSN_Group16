@@ -92,8 +92,11 @@
         // Thêm các quy tắc validation tùy chỉnh
         const validatorRules = {
             phone(value) {
+                if (!value || !value.trim()) {
+                    return 'Số điện thoại không được để trống';
+                }
                 const regex = /^[0-9]{9,11}$/;
-                return regex.test(value) ? undefined : 'Số điện thoại phải có 9-11 chữ số';
+                return regex.test(value) ? undefined : 'Số điện thoại phải có 9-11 chữ số và không chứa ký tự khác';
             },
             birthdate(value) {
                 const selectedDate = new Date(value);

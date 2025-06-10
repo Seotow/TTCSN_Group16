@@ -27,9 +27,9 @@ const updateUserInfo = (req, res) => {
     }
 
     // Validate gender
-    const validGenders = ['male', 'female', 'other'];
-    if (gender && !validGenders.includes(gender.toLowerCase())) {
-        return res.json({ success: false, message: 'Giới tính không hợp lệ. Giá trị phải là: male, female hoặc other' });
+    const validGenders = [0, 1];
+    if (gender !== undefined && gender !== null && !validGenders.includes(Number(gender))) {
+        return res.json({ success: false, message: 'Hãy chọn giới tính phù hợp' });
     }
 
     // Validate số điện thoại
