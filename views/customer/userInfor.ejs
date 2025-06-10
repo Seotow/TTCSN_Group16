@@ -23,28 +23,32 @@
                     <form id="form_update-user-infor" class="table-form">
                         <div class="form-group table-form-group">
                             <label for="name">Họ tên</label>
-                            <input rules="required" class="form-control" type="text" name="name" id="name" value="<%= user.name %>">
+                            <input rules="required|min:2|max:50" class="form-control" type="text" name="name" id="name" value="<%= user.name %>">
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group table-form-group">
                             <label for="gender">Giới tính</label>
-                            <select name="gender" id="gender" class="form-control">
+                            <select name="gender" id="gender" class="form-control" rules="required">
+                                <option value="">Chọn giới tính</option>
                                 <option value="1" <% if (user.gender === 1) { %> selected <% } %> >Nam</option>
-                                <option value="0" <% if (user.gender === 0) { %> selected <% } %> >Nữ </option>
+                                <option value="0" <% if (user.gender === 0) { %> selected <% } %> >Nữ</option>
                             </select>
+                            <span class="form-message"></span>
                         </div>
                         <div class="form-group table-form-group">
                             <label for="birthdate">Ngày sinh</label>
-                            <input class="form-control" type="date" name="birthdate" id="birthdate" value="<%= user.birthdate %>">
+                            <input class="form-control" type="date" name="birthdate" id="birthdate" rules="required" max="<%= new Date().toISOString().split('T')[0] %>" value="<%= user.birthdate %>">
+                            <span class="form-message"></span>
                         </div>
                         <div class="form-group table-form-group">
                             <label for="phone">Số điện thoại</label>
-                            <input rules="required" class="form-control" type="text" name="phone" id="phone" value="<%= user.phone %>">
+                            <input rules="required|phone" class="form-control" type="tel" pattern="[0-9]*" inputmode="numeric" name="phone" id="phone" value="<%= user.phone %>">
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group table-form-group">
                             <label for="address">Địa chỉ</label>
-                            <input class="form-control" type="text" name="address" id="address" value="<%= user.address %>">
+                            <input rules="required|min:2|max:200" class="form-control" type="text" name="address" id="address" value="<%= user.address %>">
+                            <span class="form-message"></span>
                         </div>
                         <button class="btn btn-primary">Sửa</button>
                     </form>
@@ -62,12 +66,12 @@
                         </div>
                         <div class="form-group table-form-group">
                             <label for="new-password">Mật khẩu mới</label>
-                            <input rules="required|min:6|max:18" class="form-control" type="password" name="password" id="new-password">
+                            <input class="form-control" type="password" name="password" id="new-password">
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group table-form-group">
                             <label for="confirm-password">Xác nhận mật khẩu mới</label>
-                            <input rules="required|min:6|max:18" class="form-control" type="password" name="password_confirmation" id="new-confirm-password">
+                            <input class="form-control" type="password" name="password_confirmation" id="new-confirm-password">
                             <span class="form-message"></span>
                         </div>
                         <button class="btn btn-primary">Đổi mật khẩu</button>
@@ -85,8 +89,60 @@
     <script src="/javascripts/userInfor.js"></script>
 
     <script>
-        Validator("form_update-user-infor")
-        Validator("form_update-user-password")
+        // Thêm các quy tắc validation tùy chỉnh
+        const validatorRules = {
+            phone(value) {
+                if (!value || !value.trim()) {
+                    return 'Số điện thoại không được để trống';
+                }
+                const regex = /^[0-9]{9,11}$/;
+                return regex.test(value) ? undefined : 'Số điện thoại phải có 9-11 chữ số và không chứa ký tự khác';
+            },
+            birthdate(value) {
+                const selectedDate = new Date(value);
+                const currentDate = new Date();
+                if (selectedDate > currentDate) {
+                    return 'Ngày sinh không được lớn hơn ngày hiện tại';
+                }
+                return undefined;
+            }
+        };
+
+        // Chỉ khởi tạo validator cho form thông tin cá nhân
+        const validatorInfor = new Validator('#form_update-user-infor', validatorRules);
+
+        // Xử lý sự kiện input cho số điện thoại
+        const phoneInput = document.getElementById('phone');
+        phoneInput.addEventListener('input', function(e) {
+            // Chỉ cho phép nhập số
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        // Xử lý sự kiện paste cho số điện thoại
+        phoneInput.addEventListener('paste', function(e) {
+            e.preventDefault();
+            const pastedText = (e.clipboardData || window.clipboardData).getData('text');
+            if (/^\d+$/.test(pastedText)) {
+                this.value = pastedText;
+            }
+        });
+
+        // Xử lý sự kiện change cho ngày sinh
+        const birthdateInput = document.getElementById('birthdate');
+        birthdateInput.addEventListener('change', function() {
+            const selectedDate = new Date(this.value);
+            const currentDate = new Date();
+            
+            if (selectedDate > currentDate) {
+                this.setCustomValidity('Ngày sinh không được lớn hơn ngày hiện tại');
+                this.parentElement.classList.add('invalid');
+                this.parentElement.querySelector('.form-message').innerHTML = 'Ngày sinh không được lớn hơn ngày hiện tại';
+            } else {
+                this.setCustomValidity('');
+                this.parentElement.classList.remove('invalid');
+                this.parentElement.querySelector('.form-message').innerHTML = '';
+            }
+        });
     </script>
 </body>
 </html>

@@ -36,7 +36,7 @@ router.post('/bills/cancel/:id', billController.cancelBill);
 
 // Thông tin user
 router.get('/user', userController.viewUserInfo); 
-router.post('/user/update', userController.updateUserInfo);
+router.post('/user/update/:id', userController.updateUserInfo);
 router.post('/user/update-password', userController.updateUserPassword);
 
 module.exports = router;
