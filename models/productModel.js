@@ -101,7 +101,6 @@ const searchProducts = (query, callback) => {
     });
 };
 
-
 module.exports = {
     getAllProducts,
     getDetailsAllProducts,
