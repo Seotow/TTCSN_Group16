@@ -2,7 +2,7 @@ const db = require('../config/db');
 
 // Lấy tất cả danh mục
 const getAllManufacturers = (callback) => {
-    const query = 'SELECT * FROM manuFacturers';
+    const query = 'SELECT * FROM manufacturers';
     db.query(query, (err, results) => {
         if (err) {
             return callback(err, null);
